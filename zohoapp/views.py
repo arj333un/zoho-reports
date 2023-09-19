@@ -12061,7 +12061,24 @@ def customer_balances(request):
 
 
 def delivery_challan(request):
-    user = request.user
-    view=DeliveryChellan.objects.filter(status='draft',user=user)
+    view=DeliveryChellan.objects.all()
     return render(request,'delivery_challan.html',{'view':view})
+
+def show_customize_challan(request):
+    general = "url1"
+    show = "url3"
+    
+    company = DeliveryChellan.objects.get(user = request.user)
+    
+    context = {
+        'url1' : general,
+        'url3' : show,
+        'company': company,
+    }
+    return render(request, 'customize_show_challan.html', context)
+
+def custom_report(request):
+    customer1 = customer.objects.all()
+    return render(request,'custom_report.html',{'customer':customer1})
+
 

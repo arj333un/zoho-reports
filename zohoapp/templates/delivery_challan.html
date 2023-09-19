@@ -83,16 +83,16 @@
     </a>
   </li>
 
-  <li>
+   <li>
     <div class="b text-black">
       <div id="reportrange" style="background: white; color: black; cursor: pointer; padding: 5px 10px; border: 1px solid black; height: 4vh; width: 12vw;">
         <i class="fa fa-calendar"></i>&nbsp;
         <span></span> <i class="fa fa-caret-down"></i>
       </div>
     </div>
-  </li>
+  </li> 
 
-  <a href="{% url 'product_customize' %}"  class="customize me-auto">
+  <a href="{% url 'show_customize_challan' %}"  class="customize me-auto">
     <i class="fa fa-gear" style="font-size:18px;"></i>&nbsp&nbsp&nbsp
     Customize report
   </a>
@@ -149,26 +149,28 @@
 
               </tr>
             </thead>
+            {% for v in view %}
             <tbody>
-                {% comment %} {% for v in vc %} {% endcomment %}
+              
               <tr id="over">
      
-                {% comment %} <td <a href="" style="color: rgb(3, 139, 3);"></td>
+                 <td <a href="" style="color: rgb(3, 139, 3);">{{v.chellan_no}}</td>
+                <td><a href="" style="text-decoration: none;color: rgb(204, 134, 5);">{{v.chellan_date}}</a></td>
+                <td><a href="" style="text-decoration: none;color: rgb(204, 134, 5);">{{v.status}}</a></td>
                 <td><a href="" style="text-decoration: none;color: rgb(204, 134, 5);"></a></td>
-                <td><a href="" style="text-decoration: none;color: rgb(204, 134, 5);"></a></td>
-                <td><a href="" style="text-decoration: none;color: rgb(204, 134, 5);"></a></td>
-                <td><a href="" style="text-decoration: none;color: rgb(204, 134, 5);"></a></td>  {% endcomment %}
+                <td><a href="" style="text-decoration: none;color: rgb(204, 134, 5);"></a>{{v.customer_name}}</td>  
+                <td><a href="" style="text-decoration: none;color: rgb(204, 134, 5);"></a>{{v.sub_total}}</td> 
 
                 
-                {% comment %} {% endfor %} {% endcomment %}
-
+                
 
 
 
                
               </tr>
              
-               
+              {% endfor %} 
+
             </tbody>
         </table>
         <br><br><br><br><br>

@@ -572,6 +572,10 @@ urlpatterns = [
     path('add_delivery_chellan_comment/<int:pk>',views.add_delivery_chellan_comment,name='add_delivery_chellan_comment'),
     path('customer_balances',views.customer_balances,name="customer_balances"),
     path('delivery_challan',views.delivery_challan,name="delivery_challan"),
+    path('show_customize_challan',views.show_customize_challan,name="show_customize_challan"),
+    #path('url1', views., name='url1'),
+    path('url3', views.show_customize_challan, name='url3'),
+    path('custom_report',views.custom_report,name="custom_report"),
     
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
     
