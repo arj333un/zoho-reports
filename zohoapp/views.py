@@ -12055,23 +12055,27 @@ def add_delivery_chellan_comment(request,pk):
 
 
 def customer_balances(request):
+    user = request.user
+    company = company_details.objects.get(user=user)
     vc=customer.objects.all()
-    return render(request,'customer_balances.html',{'vc':vc})
+    return render(request,'customer_balances.html',{'vc':vc,'company':company})
     return render(request,'customer_balances.html')
 
 
 def delivery_challan(request):
+    user = request.user
+    company = company_details.objects.get(user=user)
     view=DeliveryChellan.objects.all()
-    return render(request,'delivery_challan.html',{'view':view})
+    return render(request,'delivery_challan.html',{'view':view,'company':company})
 
 def show_customize_challan(request):
-    general = "url1"
+    general = "url4"
     show = "url3"
     
     company = DeliveryChellan.objects.get(user = request.user)
     
     context = {
-        'url1' : general,
+        'url4' : general,
         'url3' : show,
         'company': company,
     }
@@ -12081,4 +12085,14 @@ def custom_report(request):
     customer1 = customer.objects.all()
     return render(request,'custom_report.html',{'customer':customer1})
 
+def challan_customize(request):
+    general = "url4"
+    show = "url2"
+    
+    context = {
+        'url4' : general,
+        'url3' : show,
+        
+    }
+    return render(request, 'customize_challan.html', context)
 
