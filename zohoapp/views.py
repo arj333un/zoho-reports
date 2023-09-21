@@ -12053,6 +12053,7 @@ def add_delivery_chellan_comment(request,pk):
         comment.save()
     return redirect('delivery_challan_view',chellan.id)
 
+#-----------------------------customer balances & delivery challan
 
 def customer_balances(request):
     user = request.user
@@ -12063,9 +12064,12 @@ def customer_balances(request):
 
 
 def delivery_challan(request):
+    
     user = request.user
     company = company_details.objects.get(user=user)
     view=DeliveryChellan.objects.all()
+    
+   
     return render(request,'delivery_challan.html',{'view':view,'company':company})
 
 def show_customize_challan(request):

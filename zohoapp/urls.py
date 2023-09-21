@@ -570,6 +570,9 @@ urlpatterns = [
     path('filter_by_draft_chellan_view/<int:pk>',views.filter_by_draft_chellan_view,name='filter_by_draft_chellan_view'),
     path('filter_by_sent_chellan_view/<int:pk>',views.filter_by_sent_chellan_view,name='filter_by_sent_chellan_view'),
     path('add_delivery_chellan_comment/<int:pk>',views.add_delivery_chellan_comment,name='add_delivery_chellan_comment'),
+    
+   #-----------------------------customer balances & delivery challan
+   
     path('customer_balances',views.customer_balances,name="customer_balances"),
     path('delivery_challan',views.delivery_challan,name="delivery_challan"),
     path('show_customize_challan',views.show_customize_challan,name="show_customize_challan"),

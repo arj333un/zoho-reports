@@ -237,7 +237,7 @@
                 <div class="row">
                     <div class="col-md-6" id="originalColumn"
                         style="height: 70vh; width:25vw; overflow-y:auto; border: 1px solid #ccc; position: relative; padding-right: 15px;">
-                        <h2 style="color: white; position: sticky; top: 0; background-color: #000000;">Available Column</h2>
+                        <h2 style="color: white; position: sticky; top: 0; background-color: #000000;"></h2>
                         <div class="search-bar" style="position: sticky; top: 40px;">
                             <input type="text" id="searchInput" class="search-input" placeholder="Search items">
                             <span class="search-icon">&#128269;</span>
@@ -286,11 +286,12 @@
         </div>
     </div>
     <br>
-    <div style="padding:500px;margin-left:100px;">
+    {% comment %} <div style="padding:500px;margin-left:100px;"> {% endcomment %}
+      {% comment %} <div>
         <button type="button" class="btn btn-primary">Run Report</button>
         <a href="" class="btn btn-secondary">Cancel</a>
         
-    </div>
+    </div> {% endcomment %}
 </div>
 
 <script>

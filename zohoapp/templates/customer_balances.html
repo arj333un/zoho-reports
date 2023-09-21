@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
+<head>
+  {% comment %} <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.8/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.8/xlsx.full.min.js"></script> {% endcomment %}
 
 <style>
   
+
+
 body
 {
    justify-content: space-between;
@@ -28,7 +32,7 @@ table {
   margin-top: 20px;
   color: #333;
 
-}
+} 
 
 th, td,tr {
   padding: 10px;
@@ -147,7 +151,7 @@ td{
     }   
        
 </style>
-
+</head>
 
 
  <br> 
@@ -206,6 +210,33 @@ td{
 <br><br><br><br><br>
 <div id="contentToExport">
   <div  style="top: 7rem; " >
+    
+<!-- Search -->
+
+    <div class="row pt-3 pb-5"> 
+      <div class="col-sm-12 col-md-5 col-lg-5">
+        <input type="text" id="search" class="form-control bg-light text-dark" placeholder="Search.." autocomplete="off">
+      </div>
+      {% comment %} <div class="col-sm-6 col-md-4 col-lg-4"></div>
+      <div class="col-sm-1 col-md-1 col-lg-1">
+        <div class="col-md-1 ">
+          <div class="dropdown " >
+            <a class="dropdown-toggle btn btn-secondary text-dark pt-2 pb-2" href="" data-toggle="dropdown">
+              <i style="color: chocolate;" class="fa fa-filter"></i>
+            </a>
+            <div class="dropdown-menu m-1">
+              <a class="dropdown-item" href="">All</a>
+  
+              <a class="dropdown-item" href="" >Draft</a>
+              <a class="dropdown-item" href="">Sent</a>
+            </div>
+          </div>
+  
+          
+        </a>
+        </div> {% endcomment %}
+      </div>
+
 
    <center>
         <div class="row">
@@ -224,10 +255,10 @@ td{
     
         <div class="row" >
             <div class="col">
-              <div class="table-resposive">
-                <table class="table  text-white" id="myTable" style="width: 100%;">
+              <div class="table-responsive">
+                <table class="table text-white" id="myTable" style="width: 100%;">
                     <thead >
-                        
+                    
                       <tr class="table" >
                         <th>CUSTOMER NAME</th>
                   <th>CUSTOMER EMAIL</th>
@@ -274,6 +305,8 @@ td{
                     </tbody>
                 </table>
               </div>
+              </div>
+            </div>
                 <br><br><br><br><br>
             </div>
       
@@ -489,6 +522,29 @@ function exportAsPDF() {
 }
 textWhiteElements.forEach(element => {
     element.style.color = 'white'; // Set text color to black
+  });
+</script>
+<script>
+  var $rows = $('#table tr');
+  $('#search').keyup(function() {
+      var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+      
+      $rows.hide().filter(function() {
+          var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+          return ~text.indexOf(val);
+      }).show();
+  });
+
+</script>
+
+<script>
+  $(document).ready(function () {
+    $("#search").on("keyup", function () {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
   });
 </script>
 <!-- <script>
