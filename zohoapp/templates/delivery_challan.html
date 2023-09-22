@@ -85,7 +85,7 @@
 
    <li>
     <div class="b text-black">
-      <div id="reportrange" style="background: white; color: black; cursor: pointer; padding: 5px 10px; border: 1px solid black; height: 4vh; width: 12vw;">
+      <div id="reportrange" style="background: white; color: black; cursor: pointer; padding: 5px 10px; border: 1px solid black;height: 4vh; width: 12vw ">
         <i class="fa fa-calendar"></i>&nbsp;
         <span></span> <i class="fa fa-caret-down"></i>
       </div>
@@ -103,11 +103,16 @@
       <li><a class="printdrop" href="#" onclick="printPageContent()" style="font-size:10px;">Print Preference</a></li>
     </ul>
   </li>
-
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" style="background: white; color: black;"><i class="fa fa-file-pdf-o"></i></a>
+    <ul class="dropdown-menu">
+      <li><a class="fa fa-file-pdf-o" href="#" onclick="exportAsPDF()" style="font-size:10px;">PDF</a></li>
+    </ul>
+  </li>
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" style="background: white; color: black;">Export As</a>
     <ul class="dropdown-menu">
-      <li><a class="dropdown-item" style="font-size:10px;" onclick="exportAsPDF()">PDF</a></li>
+      {% comment %} <li><a class="dropdown-item" style="font-size:10px;" onclick="exportAsPDF()">PDF</a></li> {% endcomment %}
       <li><a class="dropdown-item" style="font-size:10px;" onclick="exportAsXLS()">XLS (Microsoft Excel 1997-2004 Compatible)</a></li>
     </ul>
   </li>
@@ -197,7 +202,7 @@
   $(function() {
     var start = moment().subtract(29, 'days');
     var end = moment();
-
+  
     function cb(start, end, label) {
       $('#reportrange span').text(label);
       $('#selectedEndDate').text('From ' +start.format('MMMM D, YYYY')+'  to  '+end.format('MMMM D, YYYY'));
@@ -219,7 +224,6 @@
       },
       opens: 'left',
       showCustomRangeLabel: true,
-      singleDatePicker: false,
       showDropdowns: true,
       alwaysShowCalendars: false,
       linkedCalendars: true, // Set linkedCalendars to true
@@ -239,9 +243,9 @@
 
     cb(start, end, 'Today');
   });
-</script>
 
-  <script>
+
+
     function printPageContent() {
       const contentToPrint = document.getElementById('container-to-print');
       const clonedContent = contentToPrint.cloneNode(true);
@@ -266,9 +270,9 @@
       printWindow.print();
       printWindow.close();
     }
-  </script>
+ 
 
-    <script>
+ 
       function exportAsXLS() {
           const data = [
               ['DATE', 'TRANSACTIONS', 'RECEIVED FROM', 'ITEM NAME', 'QUANTITY', 'DATE', 'TRANSACTIONS', 'DISPERSED TO', 'QTY DISPERSED'],
@@ -342,46 +346,9 @@
       }
       
 
-      $(function() {
-        // ... Your existing code ...
-      
-        $('#reportrange').daterangepicker({
-          // ... Your existing options ...
-        }, function(start, end) {
-          // Callback function to be executed when date range is selected
-          filterDataByDate(start, end);
-        });
-      
-        // ... Rest of your existing code ...
-      
-        function filterDataByDate(startDate, endDate) {
-          const rows = document.querySelectorAll('#myTable tbody tr');
-          let dataFound = false;
-      
-          rows.forEach(row => {
-            const dateColumn = row.querySelector('td:nth-child(2)'); // Assuming date is in the second column, adjust as needed
-      
-            if (dateColumn) {
-              const rowDate = new Date(dateColumn.innerText);
-              if (rowDate >= startDate && rowDate <= endDate) {
-                row.style.display = 'table-row';
-                dataFound = true;
-              } else {
-                row.style.display = 'none';
-              }
-            }
-          });
-      
-          const noDataMessage = document.getElementById('noDataMessage');
-          if (dataFound) {
-            noDataMessage.style.display = 'none';
-          } else {
-            noDataMessage.style.display = 'block';
-          }
-        }
-      
-        // ... Rest of your existing code ...
-      });
+
+
+   
     </script>
     
 
@@ -511,4 +478,3 @@
 
 
 {% endblock %} {% endcomment %}
-

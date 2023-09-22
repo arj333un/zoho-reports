@@ -186,13 +186,20 @@ td{
         <a class="printdrop" href="#" onclick="printPageContent()" style="font-size:16px;top: 2%;">Print Preference</a></li>
     </ul>
   </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" style="background: white; color: black;"><i class="fa fa-file-pdf-o"></i></a>
+    <ul class="dropdown-menu dropdown-menu-end">
+      <li>
+        <a class="fa fa-file-pdf-o" href="#" onclick="exportAs('pdf')" style="font-size:16px;top: 2%;">PDF</a></li>
+    </ul>
+  </li>
 
 
         
   <li class="nav-item dropdown" >
     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" style="background: transparent; color: white;font-size: medium;">Export As</a>
     <ul class="dropdown-menu dropdown-menu-end">
-      <li><a class="dropdown-item" style="font-size:15px;" onclick="exportAs('pdf')" >PDF</a></li>
+      {% comment %} <li><a class="dropdown-item" style="font-size:15px;" onclick="exportAs('pdf')" >PDF</a></li> {% endcomment %}
       <li><a class="dropdown-item" style="font-size:15px;" onclick="exportAs('xls')"  >XLS (Microsoft Excel 1997-2004 Compatible)</a></li>
 <li><a class="dropdown-item" style="font-size:15px;" onclick="exportAs('xlsx')">XLSX (Microsoft Excel )</a></li>
 
@@ -272,7 +279,7 @@ td{
 
                       </tr>
                     </thead>
-                    <tbody class="table">
+                    <tbody class="table" id="dataBody">
                      
                       {% for v in vc %}
                       <tr id="over">
@@ -304,6 +311,7 @@ td{
 
                     </tbody>
                 </table>
+                <div id="noDataFound" style="display:none;">No data found</div>
               </div>
               </div>
             </div>
@@ -595,7 +603,35 @@ document.querySelector('.xlsxExportButton').addEventListener('click', function (
   var worksheet = tableToWorksheet(contentToExport);
   downloadExcelFile(worksheet, '{{company.company_name}}.xlsx');
 });
+$(function() {
+  // ... (existing code)
 
+  function cb(start, end,label) {
+      $('#reportrange span').text(label);
+      $('#selectedEndDate').text('As of'+'  '+end.format('MMMM D, YYYY'));
+      filterData(start, end);
+  }
+
+  function filterData(startDate, endDate) {
+      var $rows = $('#myTable tr').not(':first'); // Exclude the header row
+
+      $rows.hide().filter(function() {
+          var date = moment($(this).find('td:eq(INSERT_COLUMN_INDEX)').text(), 'MMM D, YYYY'); // Adjust the column index for your date
+
+          return date.isBetween(startDate, endDate, null, []);
+      }).show();
+
+      var hasVisibleRows = $rows.filter(':visible').length > 0;
+
+      if (hasVisibleRows) {
+          $('#noDataFound').hide();
+      } else {
+          $('#noDataFound').show();
+      }
+  }
+
+  // ... (existing code)
+});
 
 </script>
 {% endblock %}
