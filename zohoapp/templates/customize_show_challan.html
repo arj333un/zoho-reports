@@ -132,6 +132,15 @@ h2{
   </li>
 </ul>
 
+<div class="col-md-4">
+
+  {% if company.company_name != None %}
+  <a class="text" style="font-size: 1rem; color: white;">{{ company.company_name }}</a><br>
+  {% else %}
+  <a class="text" style="font-size: 1rem; color: white;">{{company.companyName}}</a><br>
+  {% endif %}        <a class="text" style="font-size: 1.5rem; color: white;"> Delivery Challan Details </a><br>
+  <h5 class="text" id="selectedEndDate"></h5><br>      
+</div>
 
 <div class="container-fluid">
   <div class="container-left">

@@ -179,19 +179,18 @@ td{
               </a>
           </li>
 
-  <li class="nav-item dropdown" style="padding-left:650px ;">
-    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" style="background: white; color: black;"><i class="fa fa-print"></i></a>
-    <ul class="dropdown-menu dropdown-menu-end">
+  <li class="nav-item" style="padding-left:550px ;">
+    <a class="nav-link" data-bs-toggle="dropdown" onclick="printPageContent()" href="#" role="button" aria-expanded="false" style="background: white; color: black;"><i class="fa fa-print"></i></a>
+    {% comment %} <ul class="dropdown-menu dropdown-menu-end">
       <li>
         <a class="printdrop" href="#" onclick="printPageContent()" style="font-size:16px;top: 2%;">Print Preference</a></li>
-    </ul>
+    </ul> {% endcomment %}
   </li>
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" style="background: white; color: black;"><i class="fa fa-file-pdf-o"></i></a>
-    <ul class="dropdown-menu dropdown-menu-end">
-      <li>
-        <a class="fa fa-file-pdf-o" href="#" onclick="exportAs('pdf')" style="font-size:16px;top: 2%;">PDF</a></li>
-    </ul>
+  <li class="nav-item ">
+    <a class="nav-link" onclick="exportAsPDF()" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" style="background: white; color: black;"><i class="fa fa-file-pdf-o"></i></a>
+    
+
+     
   </li>
 
 
@@ -207,8 +206,10 @@ td{
   </li> 
 
            <li class="nav-item">
-            <input type="button" value="X" onclick="javascript:history.go(-1);" class="btn btn-tansperent" style="font-size: 20px;"> 
-       
+            {% comment %} <input type="button" value="X" onclick="javascript:history.go(-1);" class="btn btn-tansperent" style="font-size: 20px;">  {% endcomment %}
+            <a href="{% url 'report_inventory_view' %}" class="btn btn-light" style=" color: rgb(1, 1, 1);">
+              <i class="fa fa-times-circle"></i>
+          </a>
            </li>
       </ul>
   </div>
@@ -220,10 +221,10 @@ td{
     
 <!-- Search -->
 
-    <div class="row pt-3 pb-5"> 
+    {% comment %} <div class="row pt-3 pb-5"> 
       <div class="col-sm-12 col-md-5 col-lg-5">
         <input type="text" id="search" class="form-control bg-light text-dark" placeholder="Search.." autocomplete="off">
-      </div>
+      </div> {% endcomment %}
       {% comment %} <div class="col-sm-6 col-md-4 col-lg-4"></div>
       <div class="col-sm-1 col-md-1 col-lg-1">
         <div class="col-md-1 ">
@@ -248,16 +249,20 @@ td{
    <center>
         <div class="row">
           {% if company.company_name != None %}
-           <div  ><h4 class="text text-danger" 
+           <div  ><h4 class="text-white" 
             >{{company.company_name }}
             {% else %}
              Add Company</h4>
             </div>
             {% endif %}
-           <div ><a class="text text-primary" style="font-size: 2rem; white-space: nowrap;color: white;"><h2>Customer Balances</h2></a></div>
-                  <h5 class="text text-danger" id="selectedEndDate"></h5>
+           <div ><a class="text-white" style="font-size: 2rem; white-space: nowrap;color: white;"><h2>Customer Balances</h2></a></div>
+                  <h5 class="text-white" id="selectedEndDate"></h5>
             </div>
         </div>   
+        <div class="col-md-6 form-inline" style="margin-left: 56rem; margin-top: -2rem;">
+          <a class="btn text-center px-3 " data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        role="button"><i class="fa fa-filter mx-3"></i>
+                        </a>
       </center>
     
         <div class="row" >
@@ -329,7 +334,7 @@ td{
     <!-- </div> -->
 
 </div>
-<div id="pdfModal" class="modal">
+{% comment %} <div id="pdfModal" class="modal">
   <div class="modal-content">
     <div class="modal-header" style="background-color: lightgray;margin-bottom:10% ;">
      
@@ -343,10 +348,10 @@ td{
     </div>
     <div class="modal-footer">
       <button onclick="exportAsPDF()" class="button_ex">PDF</button>
-      <button >cancel</button>
+      
     </div>
   </div>
-</div>
+</div> {% endcomment %}
 
 
 
@@ -364,7 +369,7 @@ td{
     </div>
     <div class="modal-footer">
       <button class="xlsExportButton" id="xlsExportButton">Export</button>
-      <button>cancel</button>
+      
     </div>
   </div>
 </div>
@@ -384,10 +389,12 @@ td{
     </div>
     <div class="modal-footer">
       <button class="xlsxExportButton" >Export</button>
-      <button>cancel</button>
+      
     </div>
+    
   </div>
 </div>
+
 
 
 
@@ -411,6 +418,8 @@ td{
     tableElements.forEach(element => {
       element.style.color = '#000000';
       element.style.border ='1px solid';
+      element.style.borderCollapse = 'collapse'; // Set table borders to collapse
+
       
     });
 
@@ -532,7 +541,7 @@ textWhiteElements.forEach(element => {
     element.style.color = 'white'; // Set text color to black
   });
 </script>
-<script>
+<!--<script>
   var $rows = $('#table tr');
   $('#search').keyup(function() {
       var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
@@ -554,7 +563,7 @@ textWhiteElements.forEach(element => {
       });
     });
   });
-</script>
+</script>-->
 <!-- <script>
   document.querySelector('.button_ex').addEventListener('click', function () {
     const element = document.getElementById('contentToExport'); 

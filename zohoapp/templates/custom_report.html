@@ -165,11 +165,26 @@
 }
 
 </style>
+<div class="row">
+    {% if company.company_name != None %}
+     <div  ><h4 class="text-white" 
+      >{{company.company_name }}
+      {% else %}
+       Add Company</h4>
+      </div>
+      {% endif %}
+     {% comment %} <div ><a class="text-white" style="font-size: 2rem; white-space: nowrap;color: white;"><h2>Customer Balances</h2></a></div>
+            <h5 class="text-white" id="selectedEndDate"></h5>
+      </div> {% endcomment %}
+  </div>   
+  <div>
+  </div>
+
 <div class="container main-content">
     <div class="row">
         <div class="col-md-12">
             <!-- Place the close button here -->
-            <a href="" class="btn btn-light" id="close-button" style="color:  rgb(3, 3, 3);">
+            <a href="{% url 'customer_balances' %}" class="btn btn-light" id="close-button" style="color:  rgb(3, 3, 3);">
                 <i class="fa fa-times-circle"></i>
             </a>
         </div>

@@ -97,17 +97,15 @@
     Customize report
   </a>
 
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" style="background: white; color: black;"><i class="fa fa-print"></i></a>
-    <ul class="dropdown-menu">
+  <li class="nav-item">
+    <a class="nav-link" data-bs-toggle="dropdown" onclick="printPageContent()" href="#" role="button" aria-expanded="false" style="background: white; color: black;"><i class="fa fa-print"></i></a>
+    {% comment %} <ul class="dropdown-menu">
       <li><a class="printdrop" href="#" onclick="printPageContent()" style="font-size:10px;">Print Preference</a></li>
-    </ul>
+    </ul> {% endcomment %}
   </li>
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" style="background: white; color: black;"><i class="fa fa-file-pdf-o"></i></a>
-    <ul class="dropdown-menu">
-      <li><a class="fa fa-file-pdf-o" href="#" onclick="exportAsPDF()" style="font-size:10px;">PDF</a></li>
-    </ul>
+  <li class="nav-item">
+    <a class="nav-link "  onclick="exportAsPDF()" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" style="background: white; color: black;"><i class="fa fa-file-pdf-o"></i></a>
+    
   </li>
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" style="background: white; color: black;">Export As</a>
@@ -262,6 +260,8 @@
       const tableElements = clonedContent.querySelectorAll('table, th, td, tr');
       for (const element of tableElements) {
       element.style.border = '1px solid black';
+      element.style.borderCollapse = 'collapse'; // Set table borders to collapse
+
       }
   
       // Print the cloned content
@@ -324,7 +324,7 @@
       
         const pdfOptions = {
           margin: 0,
-          filename: '{{company.company_name}}_Product_Sales_Report.pdf',
+          filename: '{{company.company_name}}_DeliveryChallan_Report.pdf',
           image: { type: 'jpeg', quality: 0.98 },
           html2canvas: { scale: 2 },
           jsPDF: { unit: 'mm', format: 'a3', orientation: 'landscape' },
