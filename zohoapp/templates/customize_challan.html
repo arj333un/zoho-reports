@@ -62,23 +62,26 @@
   </li>
 </ul>
 
-<div class="col-md-4">
+{% comment %} <div class="col-md-4">
 
   {% if company.company_name != None %}
   <a class="text" style="font-size: 1rem; color: white;">{{ company.company_name }}</a><br>
   {% else %}
   <a class="text" style="font-size: 1rem; color: white;">{{company.companyName}}</a><br>
-  {% endif %}        
+  {% endif %} 
+</div>   {% endcomment %}
+  
+  
   {% comment %} <a class="text" style="font-size: 1.5rem; color: white;"> Delivery Challan Details </a><br> {% endcomment %}
   {% comment %} <h5 class="text" id="selectedEndDate"></h5><br>       {% endcomment %}
-</div>
+
 
 <div class="container-fluid">
   <div class="container-left">
     <div class="row d-flex justify-content-center align-items-center">
       <div class="list-group">
-        <a href="{{ url4 }}" class="list-group-item list-group-item-action d-flex justify-content-center" aria-current="true">General</a>
-        <a href="{{ url3 }}" class="list-group-item list-group-item-action d-flex justify-content-center" aria-current="true">Show / Hide Columns</a>
+        <a href="{{ url4 }}" class="list-group-item list-group-item-action d-flex justify-content-center " aria-current="true">General</a>
+        <a href="{{ url3 }}" class="list-group-item list-group-item-action d-flex justify-content-center " aria-current="true">Show / Hide Columns</a>
       </div>
     </div>
   </div>

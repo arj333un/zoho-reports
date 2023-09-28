@@ -141,14 +141,14 @@
         <table class="table  text-white" id="myTable" style="width: 100%;">
             <thead>
               <tr>
-                <th >DELIVERY CHALLAN#</th>
+                <th class="text-white">DELIVERY CHALLAN#</th>
 
-                <th >DATE</th>
-                <th >STATUS</th>
-                <th >INVOICE STATUS</th>
-                <th >CONTACT NAME</th>
+                <th class="text-white">DATE</th>
+                <th class="text-white">STATUS</th>
+                <th class="text-white">INVOICE STATUS</th>
+                <th class="text-white">CONTACT NAME</th>
                 
-                <th >AMOUNT</th
+                <th class="text-white">AMOUNT</th
 
 
               </tr>
@@ -158,12 +158,12 @@
               
               <tr id="over">
      
-                 <td <a href="" style="color: rgb(3, 139, 3);">{{v.chellan_no}}</td>
-                <td><a href="" style="text-decoration: none;color: rgb(204, 134, 5);">{{v.chellan_date}}</a></td>
-                <td><a href="" style="text-decoration: none;color: rgb(204, 134, 5);">{{v.status}}</a></td>
-                <td><a href="" style="text-decoration: none;color: rgb(204, 134, 5);"></a></td>
-                <td><a href="" style="text-decoration: none;color: rgb(204, 134, 5);"></a>{{v.customer_name}}</td>  
-                <td><a href="" style="text-decoration: none;color: rgb(204, 134, 5);"></a>{{v.sub_total}}</td> 
+                 <td <a href="" style="color:white ;">{{v.chellan_no}}</td>
+                <td> <class="text-white">{{v.chellan_date}}</td>
+                <td><class="text-white">{{v.status}}</td>
+                <td><a href="" style="text-decoration: none;color:white;"></a></td>
+                <td><a href="" style="text-decoration: none;color:white;"></a>{{v.customer_name}}</td>  
+                <td><a href="" style="text-decoration: none;color:white;"></a>{{v.sub_total}}</td> 
 
                 
                 
@@ -259,6 +259,7 @@
       // Set table styles to black
       const tableElements = clonedContent.querySelectorAll('table, th, td, tr');
       for (const element of tableElements) {
+      element.style.color = '#000000';  // Text color (black)
       element.style.border = '1px solid black';
       element.style.borderCollapse = 'collapse'; // Set table borders to collapse
 
@@ -285,7 +286,7 @@
           XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
       
           // Save the XLS file
-          XLSX.writeFile(wb, '{{ company.company_name }}_Product_Sales_Report.xlsx');
+          XLSX.writeFile(wb, '{{ company.company_name }}_DeliveryChallan_Report.xlsx');
       }
       
       function exportAsPDF() {

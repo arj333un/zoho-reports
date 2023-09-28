@@ -2,11 +2,8 @@
 {% block content %}
 {% load static %}
 <head>
-  {% comment %} <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.8/xlsx.full.min.js"></script> {% endcomment %}
+
+
 
 <style>
   
@@ -229,35 +226,11 @@ td{
 </nav>
 </div>
 <br><br><br><br><br>
-<div id="contentToExport">
+
   <div  style="top: 7rem; " >
     
-<!-- Search -->
 
-    {% comment %} <div class="row pt-3 pb-5"> 
-      <div class="col-sm-12 col-md-5 col-lg-5">
-        <input type="text" id="search" class="form-control bg-light text-dark" placeholder="Search.." autocomplete="off">
-      </div> {% endcomment %}
-      {% comment %} <div class="col-sm-6 col-md-4 col-lg-4"></div>
-      <div class="col-sm-1 col-md-1 col-lg-1">
-        <div class="col-md-1 ">
-          <div class="dropdown " >
-            <a class="dropdown-toggle btn btn-secondary text-dark pt-2 pb-2" href="" data-toggle="dropdown">
-              <i style="color: chocolate;" class="fa fa-filter"></i>
-            </a>
-            <div class="dropdown-menu m-1">
-              <a class="dropdown-item" href="">All</a>
-  
-              <a class="dropdown-item" href="" >Draft</a>
-              <a class="dropdown-item" href="">Sent</a>
-            </div>
-          </div>
-  
-          
-        </a>
-        </div> {% endcomment %}
-      </div>
-    </div>
+     
     <div class="col-md-3">
       <select id="customerFilter" class="form-control text-black">
           <option value="Customer">All Customers</option>
@@ -267,7 +240,7 @@ td{
       </select>
     
   </div>
-    
+  <div id="contentToExport">
    <center>
         <div class="row">
           {% if company.company_name != None %}
@@ -353,24 +326,7 @@ td{
     <!-- </div> -->
 
 </div>
-{% comment %} <div id="pdfModal" class="modal">
-  <div class="modal-content">
-    <div class="modal-header" style="background-color: lightgray;margin-bottom:10% ;">
-     
-      <h2 style="color: black;font-size: larger;font-weight: bold;justify-content: right;">Export Report As PDF</h2>
-      <span class="close" >&times;</span>
-    </div>
-    <div class="modal-body" >
-      <p  style="color: black;font-size: medium;">You can protect the export report with a password to keep your data secure</p>
-      <input type="checkbox" style="color: black;"><p style="color: black;font-size: medium;">I want to protect this file with password</p><br>
-      
-    </div>
-    <div class="modal-footer">
-      <button onclick="exportAsPDF()" class="button_ex">PDF</button>
-      
-    </div>
-  </div>
-</div> {% endcomment %}
+
 
 
 
@@ -423,8 +379,14 @@ td{
 </div>
 <script>
   function printPageContent() {
+    console.log('Function executed');
+
     const contentToPrint = document.getElementById('contentToExport');
+    console.log('Function executed');
+
     const clonedContent = contentToPrint.cloneNode(true);
+    console.log('Function executed');
+
 
     // Find all the elements with the class "text" within the cloned content
     const textElements = clonedContent.querySelectorAll('.text');
@@ -432,12 +394,14 @@ td{
 
     // Set the text color to black for each element with the class "text"
     textElements.forEach(element => {
-        element.style.color = '#000000';  // Text color (black)
+      element.style.color = '#000000';  // Text color (black)
     });
     tableElements.forEach(element => {
-        element.style.color = '#000000';
-        element.style.border ='1px solid';
-        element.style.borderCollapse = 'collapse'; // Set table borders to collapse
+      element.style.color = '#000000';
+      element.style.border ='1px solid';
+      element.style.borderCollapse = 'collapse'; // Set table borders to collapse
+
+      
     });
 
     // Print the cloned content
@@ -445,7 +409,7 @@ td{
     printWindow.document.body.appendChild(clonedContent);
     printWindow.print();
     printWindow.close();
-}
+  }
 </script>
 
 
@@ -530,8 +494,78 @@ $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
       $(this).closest(".modal").hide();
   });
 </script>
+<script>
+function exportAsPDF() {
+  const container = document.getElementById('contentToExport');
 
+  // Apply styling changes to the container's content
+  const textWhiteElements = container.querySelectorAll('.text');
+  textWhiteElements.forEach(element => {
+    element.style.color = '#000000'; // Set text color to black
+  });
 
+  
+
+  const pdfOptions = {
+    margin: 0,
+    filename: '{{company.company_name}}.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'mm', format: 'a3', orientation: 'landscape' },
+  };
+
+  // Generate PDF from the container
+  html2pdf().from(container).set(pdfOptions).save();
+  
+}
+textWhiteElements.forEach(element => {
+    element.style.color = 'black'; // Set text color to black
+  });
+</script>
+<!--<script>
+  var $rows = $('#table tr');
+  $('#search').keyup(function() {
+      var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+      
+      $rows.hide().filter(function() {
+          var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+          return ~text.indexOf(val);
+      }).show();
+  });
+
+</script>
+
+<script>
+  $(document).ready(function () {
+    $("#search").on("keyup", function () {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script>-->
+<!-- <script>
+  document.querySelector('.button_ex').addEventListener('click', function () {
+    const element = document.getElementById('contentToExport'); 
+     
+   
+    const pdfOptions = {
+      margin: 1,
+      filename: 'inventory.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale:1  },
+      
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'Landscape' },
+    };
+    
+     html2pdf().from(element).set(pdfOptions).save();
+    
+   
+
+   
+  }); 
+</script> -->
 <script>
 // Function to convert a table to a worksheet object
 function tableToWorksheet(table) {
@@ -617,9 +651,5 @@ $(document).ready(function() {
 });
 
 
-  
-
 </script>
 {% endblock %}
-
-
