@@ -197,7 +197,7 @@ td{
     </ul> {% endcomment %}
   </li>
   <li class="nav-item ">
-    <a class="nav-link" onclick="exportAsPDF()" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" style="background: white; color: black;"><i class="fa fa-file-pdf-o"></i></a>
+    <a class="nav-link" onclick="exportAsPDF()" data-bs-toggle="dropdown" href="" role="button" aria-expanded="false" style="background: white; color: black;"><i class="fa fa-file-pdf-o"></i></a>
     
 
      
@@ -227,155 +227,127 @@ td{
 </div>
 <br><br><br><br><br>
 
-  <div  style="top: 7rem; " >
-    
-
-     
-    <div class="col-md-3">
-      <select id="customerFilter" class="form-control text-black">
-          <option value="Customer">All Customers</option>
+<div  style="top: 7rem; " > 
+    <div class="mt-1">
+        <datalist onclick="getValue()" id="customers" >
+          
           {% for v in vc %}
-              <option value="{{ v.customerName }}">{{ v.customerName }}</option>
-          {% endfor %}
-      </select>
-    
-  </div>
-  <div id="contentToExport">
-   <center>
+          <option value="{{ v.customerName }}" >
+      {% endfor %}
+
+        
+        </datalist>
+    </div>
+    <input type="text" onclick="getValue()" id="search"  placeholder="Search.." autocomplete="off"  list="customers">
+    <div id="contentToExport">
+    <table class="table table-bordered  mt-4" id="transactionTable">
+</div>
+<p id="result" hidden>'{{company.company_name}}'</p>
+<script>
+  // Get the input element by its ID
+  var searchInput = document.getElementById("search");
+
+  // Add an event listener for the "input" event
+  searchInput.addEventListener("input", function () {
+      // Get the current value of the search bar
+      var searchValue = searchInput.value;
+     if (searchValue.trim() !== "") {
+          // If the input is not empty, display the result and remove the "hidden" attribute
+           document.getElementById("result").innerHTML =  searchValue;
+           document.getElementById("selected_customer_heading").innerHTML =  searchValue+' Balances';
+      } else {
+          // If the input is empty, hide the result by adding the "hidden" attribute
+          document.getElementById("result").innerHTML =  '{{company.company_name}}';
+          document.getElementById("selected_customer_heading").innerHTML =  'Customer Balances';
+      }
+       
+      
+  });
+    </script>
+    <center>
         <div class="row">
           {% if company.company_name != None %}
-           <div  ><h4 class="text-white" 
-            >{{company.company_name }}
-            {% else %}
-             Add Company</h4>
+           <div  ><h4 class="text-white" >
+                {{company.company_name }}
+                {% else %}
+                Add Company</h4>
+                </div>
+                {% endif %}
+                <div >
+                    <a class="text-white"  id="selected_customer_heading"><h2>Customer Balances</h2></a>
+                </div>
+                <h5 class="text-white" id="selectedEndDate"></h5>
             </div>
-            {% endif %}
-           <div ><a class="text-white" style="font-size: 2rem; white-space: nowrap;color: white;" id="customerHeading"><h2>Customer Balances</h2></a></div>
-                  <h5 class="text-white" id="selectedEndDate"></h5>
-            </div>
-        </div>   
-        
-      </center>
-    
-        <div class="row" >
-            <div class="col">
-              <div class="table-responsive">
+        </div>      
+    </center>
+    <!--style="font-size: 2rem; white-space: nowrap;"-->
+    <div class="row" >
+        <div class="col">
+            <div class="table-responsive">
                 <table class="table" id="myTable" style="width: 100%;color:white; ">
                     <thead >
-                    
-                      <tr class="table"  >
-                        <th class="table text-white" >CUSTOMER NAME</th>
-                  <th class="table text-white">CUSTOMER EMAIL</th>
-                  
-                  <th class="table text-white">INVOICE BALANCE(FCY)</th>
-
-                  <th class="table text-white">AVAILABLE CREDITS(FCY)</th>
-                  <th class="table text-white">BALANCE(FCY)</th>
-                  
-                  <th class="table text-white">BALANCE(BCY)</th>
-
-                      </tr>
+                        <tr class="table"  >
+                            <th class="text-white">CUSTOMER NAME</th>
+                            <th class="text-white" >CUSTOMER EMAIL</th>
+                            <th class="text-white"  >INVOICE BALANCE(FCY)</th>
+                            <th class="text-white"   >AVAILABLE CREDITS(FCY)</th>
+                            <th class="text-white"  >BALANCE(FCY)</th>
+                            <th class="text-white" >BALANCE(BCY)</th>
+                        </tr>
                     </thead>
                     <tbody class="table" id="dataBody">
-                     
-                      {% for v in vc %}
-                      <tr id="over">
-                      
-                     
-                        <td class="table text-white">{{v.customerName}}</td>
-                        
-                        <td class="table text-white">{{v.customerEmail}}</td>
-                        <td class="table text-white"></td>
-                        <td class="table text-white"></td>
-
-                        <td class="table text-white"></td>
-                        <td class="table text-white"></td>
-                        
-
-        
-                       
-                      </tr>
-                      
-                      {% endfor %}
-                      <td class="table text-white">Total</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-               
-            
-
+                        {% for v in vc %}
+                        <tr id="over">
+                            <td class="text-white" >{{v.customerName}}</td>
+                            <td class="text-white" >{{v.customerEmail}}</td>
+                            <td class="text-white" ></td>
+                            <td class="text-white" ></td>
+                            <td class="text-white" ></td>
+                            <td class="text-white" ></td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td class="text-white" >Total</td>
+                        </tr>
                     </tbody>
                 </table>
                 <div id="noDataFound" style="display:none;">No data found</div>
-              </div>
-              </div>
             </div>
-                <br><br><br><br><br>
-            </div>
-      
-           
-
         </div>
-      </div>    
-
-           
-        
-
-    <!-- </div> -->
-
-</div>
-
-
-
+    </div>
+</div>               
 
 <div id="xlsModal" class="modal">
   <div class="modal-content">
     <div class="modal-header" style="background-color: lightgray;margin-bottom:10% ;">
-     
       <h2 style="color: black;font-size: larger;font-weight: bold;justify-content: right;">Export Report as XLS (Microsoft Excel 1997-2004 Compatible)</h2>
       <span class="close">&times;</span>
     </div>
     <div class="modal-body" >
       <p  style="color: black;font-size: medium;">You can protect the export report with a password to keep your data secure</p>
       <input type="checkbox" style="color: black;"><p style="color: black;font-size: medium;">I want to protect this file with password</p><br>
-      
     </div>
     <div class="modal-footer">
-      <button class="xlsExportButton" id="xlsExportButton">Export</button>
-      
+        <button class="xlsExportButton" id="xlsExportButton">Export</button>
     </div>
   </div>
 </div>
 
 
 <div id="xlsxModal" class="modal">
-  <div class="modal-content">
-    <div class="modal-header" style="background-color: lightgray;margin-bottom:10% ;">
-     
-      <h2 style="color: black;font-size: larger;font-weight: bold;justify-content: right;">Export Report as XLSX (Microsoft Excel)</h2>
-      <span class="close">&times;</span>
+    <div class="modal-content">
+        <div class="modal-header" style="background-color: lightgray;margin-bottom:10% ;">
+            <h2 style="color: black;font-size: larger;font-weight: bold;justify-content: right;">Export Report as XLSX (Microsoft Excel)</h2>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body" >
+            <p  style="color: black;font-size: medium;">You can protect the export report with a password to keep your data secure</p>
+            <input type="checkbox" style="color: black;"><p style="color: black;font-size: medium;">I want to protect this file with password</p><br>
+        </div>
+        <div class="modal-footer">
+            <button class="xlsxExportButton" >Export</button>
+        </div>
     </div>
-    <div class="modal-body" >
-      <p  style="color: black;font-size: medium;">You can protect the export report with a password to keep your data secure</p>
-      <input type="checkbox" style="color: black;"><p style="color: black;font-size: medium;">I want to protect this file with password</p><br>
-      
-    </div>
-    <div class="modal-footer">
-      <button class="xlsxExportButton" >Export</button>
-      
-    </div>
-    
-  </div>
-</div>
-
-
-
-
-&nbsp&nbsp&nbsp
-
-</div> 
 </div>
 <script>
   function printPageContent() {
@@ -389,7 +361,7 @@ td{
 
 
     // Find all the elements with the class "text" within the cloned content
-    const textElements = clonedContent.querySelectorAll('.text');
+    const textElements = clonedContent.querySelectorAll('.body');
     const tableElements = clonedContent.querySelectorAll('.table');
 
     // Set the text color to black for each element with the class "text"
@@ -499,16 +471,20 @@ function exportAsPDF() {
   const container = document.getElementById('contentToExport');
 
   // Apply styling changes to the container's content
-  const textWhiteElements = container.querySelectorAll('.text');
+  const textWhiteElements = container.querySelectorAll('.body');
   textWhiteElements.forEach(element => {
     element.style.color = '#000000'; // Set text color to black
-  });
 
+    
+  
+  });
+ 
+    
   
 
   const pdfOptions = {
     margin: 0,
-    filename: '{{company.company_name}}.pdf',
+    filename: document.getElementById('result').innerHTML + "_balances",
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 2 },
     jsPDF: { unit: 'mm', format: 'a3', orientation: 'landscape' },
@@ -622,34 +598,57 @@ $(function() {
 
   // ... (existing code)
 });
-$(document).ready(function() {
-  $('#customerFilter').on('change', function() {
-    var selectedCustomer = $(this).val();
-    var $table = $('#myTable');
 
-    // Show the table header row
-    $table.find('thead tr').show();
 
-    $table.find('tbody tr').each(function() {
-      var customerName = $(this).find('td:eq(0)').text(); // Assuming the customer name is in the first column
-
-      if (selectedCustomer === 'Customer' || customerName === selectedCustomer) {
-        $(this).show();
-      } else {
-        $(this).hide();
-      }
-    });
-  });
-});
-$(document).ready(function() {
-  $('#customerFilter').on('change', function() {
-      var selectedCustomer = $(this).val();
-      $('#customerHeading h2').text(selectedCustomer + " Balances");
-
-  });
+</script>
+<script>
+  const searchInput = document.getElementById("search");
+  const partyNameDisplay = document.getElementById("party_name");
   
-});
+  searchInput.addEventListener("input", handleInputChange);
+  
+  function handleInputChange() {
+      const selectedCustomer = this.value;
+      const headingElement = document.getElementById("selected_customer_heading");
+      headingElement.innerHTML = selectedCustomer ? <h2>${selectedCustomer} Balances</h2> : "<h2>Customer Balances</h2>";
+  }
+  
+  // Add event listener to the input field for the "input" event
+  searchInput.addEventListener("input", handleInput);
+  
+  // Function to handle input changes
+  function handleInput() {
+      const checkbox = document.getElementById('myCheckbox');
+      const startDateInput = document.getElementById('startDate');
+      const endDateInput = document.getElementById('endDate');
+      // Add an event listener to the checkbox to toggle the date input
+      checkbox.addEventListener('change', function() {
+          if (checkbox.checked) {
+              startDateInput.style.display = 'flex';
+              endDateInput.style.display = 'flex'; // Show the date input
+          } else {
+              startDateInput.style.display = 'none';
+              endDateInput.style.display = 'none' // Hide the date input
+          }
+      });
+  }
+  
+</script>
+<script>
+    var $rows = $('table tbody tr');
+    $('#search').keyup(function() {
+        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+        
+        $rows.hide().filter(function() {
+            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+            return ~text.indexOf(val);
+        }).show();
+    });
 
+  
 
+</script>
+<script>
+ 
 </script>
 {% endblock %}

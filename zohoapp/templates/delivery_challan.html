@@ -141,14 +141,14 @@
         <table class="table  text-white" id="myTable" style="width: 100%;">
             <thead>
               <tr>
-                <th class="text-white">DELIVERY CHALLAN#</th>
+                <th style="color:white;">DELIVERY CHALLAN#</th>
 
-                <th class="text-white">DATE</th>
-                <th class="text-white">STATUS</th>
-                <th class="text-white">INVOICE STATUS</th>
-                <th class="text-white">CONTACT NAME</th>
+                <th style="color:white;">DATE</th>
+                <th style="color:white;">STATUS</th>
+                <th style="color:white;">INVOICE STATUS</th>
+                <th style="color:white;">CONTACT NAME</th>
                 
-                <th class="text-white">AMOUNT</th
+                <th style="color:white;">AMOUNT</th
 
 
               </tr>
@@ -270,6 +270,7 @@
       printWindow.document.body.appendChild(clonedContent);
       printWindow.print();
       printWindow.close();
+      printWindow.location.reload();
     }
  
 
@@ -344,6 +345,7 @@
           container.classList.remove('pdf-background');
           });
         });
+        printWindow.location.reload()
       }
       
 
