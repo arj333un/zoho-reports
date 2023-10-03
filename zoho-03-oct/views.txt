@@ -1,0 +1,4 @@
+def show_customize_challan(request):
+    user = request.user
+    company1 = company_details.objects.get(user = user)
+    return render(request, 'customize_show_challan.html', {'company':company1})

@@ -154,12 +154,12 @@
               </tr>
             </thead>
             {% for v in view %}
-            <tbody>
+            <tbody id="tableBody">
               
               <tr id="over">
      
                  <td <a href="" style="color:white ;">{{v.chellan_no}}</td>
-                <td> <class="text-white">{{v.chellan_date}}</td>
+                <td> <class="chellan_date">{{v.chellan_date}}</td>
                 <td><class="text-white">{{v.status}}</td>
                 <td><a href="" style="text-decoration: none;color:white;"></a></td>
                 <td><a href="" style="text-decoration: none;color:white;"></a>{{v.customer_name}}</td>  
@@ -244,114 +244,143 @@
 
 
 
-    function printPageContent() {
-      const contentToPrint = document.getElementById('container-to-print');
-      const clonedContent = contentToPrint.cloneNode(true);
+  function printPageContent() {
+    const contentToPrint = document.getElementById('container-to-print');
+    const clonedContent = contentToPrint.cloneNode(true);
 
-      // Find all the elements with the class "text" within the cloned content
-      const textElements = clonedContent.querySelectorAll('.text');
+    // Find all the elements with the class "text" within the cloned content
+    const textElements = clonedContent.querySelectorAll('.text');
 
-      // Set the text color to black for each element with the class "text"
-      textElements.forEach(element => {
-        element.style.color = '#000000';  // Text color (black)
-      });
-
-      // Set table styles to black
-      const tableElements = clonedContent.querySelectorAll('table, th, td, tr');
-      for (const element of tableElements) {
+    // Set the text color to black for each element with the class "text"
+    textElements.forEach(element => {
       element.style.color = '#000000';  // Text color (black)
-      element.style.border = '1px solid black';
-      element.style.borderCollapse = 'collapse'; // Set table borders to collapse
+    });
 
-      }
-  
-      // Print the cloned content
-      const printWindow = window.open('', '_blank');
-      printWindow.document.body.appendChild(clonedContent);
-      printWindow.print();
-      printWindow.close();
-      printWindow.location.reload();
+    // Set table styles to black
+    const tableElements = clonedContent.querySelectorAll('table, th, td, tr');
+    for (const element of tableElements) {
+    element.style.color = '#000000';  // Text color (black)
+    element.style.border = '1px solid black';
+    element.style.borderCollapse = 'collapse'; // Set table borders to collapse
+
     }
- 
 
- 
-      function exportAsXLS() {
-          const data = [
-              ['DATE', 'TRANSACTIONS', 'RECEIVED FROM', 'ITEM NAME', 'QUANTITY', 'DATE', 'TRANSACTIONS', 'DISPERSED TO', 'QTY DISPERSED'],
-              ['Data 1', 'Data 2', 'Data 3', 'Data 4', 'Data 5', 'Data 6', 'Data 7', 'Data 8', 'Data 9'],
-              // Add more rows as needed
-          ];
-      
-          const ws = XLSX.utils.aoa_to_sheet(data);
-          const wb = XLSX.utils.book_new();
-          XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-      
-          // Save the XLS file
-          XLSX.writeFile(wb, '{{ company.company_name }}_DeliveryChallan_Report.xlsx');
-      }
-      
-      function exportAsPDF() {
-        const container = document.getElementById('container-to-print');
-      
-        // Save the original background color
-        const originalBackgroundColor = container.style.backgroundColor;
-      
-        // Set the container's background color to white
-        container.style.backgroundColor = 'white';
-      
-        // Apply styling changes to the container's content
-        const textWhiteElements = container.querySelectorAll('.text');
+    // Print the cloned content
+    const printWindow = window.open('', '_blank');
+    printWindow.document.body.appendChild(clonedContent);
+    printWindow.print();
+    printWindow.close();
+    printWindow.location.reload();
+  }
+
+
+
+    function exportAsXLS() {
+        const data = [
+            ['DATE', 'TRANSACTIONS', 'RECEIVED FROM', 'ITEM NAME', 'QUANTITY', 'DATE', 'TRANSACTIONS', 'DISPERSED TO', 'QTY DISPERSED'],
+            ['Data 1', 'Data 2', 'Data 3', 'Data 4', 'Data 5', 'Data 6', 'Data 7', 'Data 8', 'Data 9'],
+            // Add more rows as needed
+        ];
+    
+        const ws = XLSX.utils.aoa_to_sheet(data);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    
+        // Save the XLS file
+        XLSX.writeFile(wb, '{{ company.company_name }}_DeliveryChallan_Report.xlsx');
+    }
+    
+    function exportAsPDF() {
+      const container = document.getElementById('container-to-print');
+    
+      // Save the original background color
+      const originalBackgroundColor = container.style.backgroundColor;
+    
+      // Set the container's background color to white
+      container.style.backgroundColor = 'white';
+    
+      // Apply styling changes to the container's content
+      const textWhiteElements = container.querySelectorAll('.text');
+      textWhiteElements.forEach(element => {
+        element.style.color = '#000000'; // Set text color to black
+      });
+    
+      const tableElements = container.querySelectorAll('table');
+      const tableCells = container.querySelectorAll('td, th');
+      const tableRows = container.querySelectorAll('tr');
+    
+      tableElements.forEach(table => {
+        table.style.backgroundColor = '#ffffff'; // Set background color to white
+        table.style.color = '#000000'; // Set text color to black
+      });
+    
+      tableCells.forEach(cell => {
+        cell.style.backgroundColor = '#ffffff'; // Set background color to white
+        cell.style.color = '#000000'; // Set text color to black
+        cell.style.border = '1px solid black'; // Add a black border
+      });
+    
+      tableRows.forEach(row => {
+        row.style.backgroundColor = '#000000'; // Set background color to black
+      });
+    
+      const pdfOptions = {
+        margin: 0,
+        filename: '{{company.company_name}}_DeliveryChallan_Report.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a3', orientation: 'landscape' },
+      };
+    
+      // Generate PDF from the container
+      html2pdf().from(container).set(pdfOptions).save().then(() => {
+
+        // Restore the original background color
+        container.style.backgroundColor = originalBackgroundColor;
+
         textWhiteElements.forEach(element => {
-          element.style.color = '#000000'; // Set text color to black
+          element.style.color = 'white'; // Restore original text color
+
+        // Remove the pdf-background class after generating the PDF
+        container.classList.remove('pdf-background');
+        
         });
-      
-        const tableElements = container.querySelectorAll('table');
-        const tableCells = container.querySelectorAll('td, th');
-        const tableRows = container.querySelectorAll('tr');
-      
-        tableElements.forEach(table => {
-          table.style.backgroundColor = '#ffffff'; // Set background color to white
-          table.style.color = '#000000'; // Set text color to black
-        });
-      
-        tableCells.forEach(cell => {
-          cell.style.backgroundColor = '#ffffff'; // Set background color to white
-          cell.style.color = '#000000'; // Set text color to black
-          cell.style.border = '1px solid black'; // Add a black border
-        });
-      
-        tableRows.forEach(row => {
-          row.style.backgroundColor = '#000000'; // Set background color to black
-        });
-      
-        const pdfOptions = {
-          margin: 0,
-          filename: '{{company.company_name}}_DeliveryChallan_Report.pdf',
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2 },
-          jsPDF: { unit: 'mm', format: 'a3', orientation: 'landscape' },
-        };
-      
-        // Generate PDF from the container
-        html2pdf().from(container).set(pdfOptions).save().then(() => {
-  
-          // Restore the original background color
-          container.style.backgroundColor = originalBackgroundColor;
-  
-          textWhiteElements.forEach(element => {
-            element.style.color = 'white'; // Restore original text color
-  
-          // Remove the pdf-background class after generating the PDF
-          container.classList.remove('pdf-background');
-          });
-        });
-        printWindow.location.reload()
+        window.location.reload();
+      });
+    }
+
+
+    function filterDataByDate(startDate, endDate) {
+      const tableBody = document.getElementById('tableBody');
+      const rows = tableBody.querySelectorAll('tr');
+    
+      rows.forEach(row => {
+        const date = new Date(row.querySelector('.chellan_date').textContent);
+    
+        if (date >= startDate && date <= endDate) {
+          row.style.display = 'table-row';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    
+      const noDataMessage = document.getElementById('noDataMessage');
+    
+      if (Array.from(rows).every(row => row.style.display === 'none')) {
+        noDataMessage.style.display = 'block';
+      } else {
+        noDataMessage.style.display = 'none';
       }
-      
+    }
 
-
-
-   
+    $('#reportrange').daterangepicker({
+      startDate: start,
+      endDate: end,
+      // ...
+    }, function(start, end, label) {
+      filterDataByDate(start, end);
+    });
+    
     </script>
     
 

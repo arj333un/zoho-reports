@@ -12073,34 +12073,13 @@ def delivery_challan(request):
     return render(request,'delivery_challan.html',{'view':view,'company':company})
 
 def show_customize_challan(request):
-    general = "url4"
-    show = "url3"
-    
-    company = DeliveryChellan.objects.get(user = request.user)
-    
-    context = {
-        'url4' : general,
-        'url3' : show,
-        'company': company,
-    }
-    return render(request, 'customize_show_challan.html', context)
+    user = request.user
+    company1 = company_details.objects.get(user = user)
+    return render(request, 'customize_show_challan.html', {'company':company1})
 
 def custom_report(request):
     user = request.user
     customer1 = customer.objects.all()
     company = company_details.objects.get(user=user)
     return render(request,'custom_report.html',{'customer':customer1,'company':company})
-
-def challan_customize(request):
-    user = request.user
-    company = company_details.objects.get(user=user)
-    general = "url4"
-    show = "url3"
-    
-    context = {
-        'url4' : general,
-        'url3' : show,
-        'company' : company,
-    }
-    return render(request, 'customize_challan.html',context)
 

@@ -159,7 +159,7 @@ td{
     text-align:center;
     color:white;
   }
-       
+
 </style>
 </head>
 
@@ -183,7 +183,7 @@ td{
           </li>
           <li class="nav-item">
               <!-- Custom report link -->
-              <a class="nav-link" href="{% url 'custom_report' %}" style="color: white;white-space: nowrap;">
+              <a class="nav-link" href="" style="color: white;white-space: nowrap;">
                   <i class="fa fa-gear" style="color: #0056b3;" ></i>
                   Custom Report
               </a>
@@ -263,20 +263,20 @@ td{
        
       
   });
-    </script>
+</script>
     <center>
         <div class="row">
           {% if company.company_name != None %}
-           <div  ><h4 class="text-white" >
+           <div  ><h4 style="color: white;" >
                 {{company.company_name }}
                 {% else %}
                 Add Company</h4>
                 </div>
                 {% endif %}
                 <div >
-                    <a class="text-white"  id="selected_customer_heading"><h2>Customer Balances</h2></a>
+                    <a style="color: white;"  id="selected_customer_heading"><h2>Customer Balances</h2></a>
                 </div>
-                <h5 class="text-white" id="selectedEndDate"></h5>
+                <h5 style="color: white;" id="selectedEndDate"></h5>
             </div>
         </div>      
     </center>
@@ -287,27 +287,27 @@ td{
                 <table class="table" id="myTable" style="width: 100%;color:white; ">
                     <thead >
                         <tr class="table"  >
-                            <th class="text-white">CUSTOMER NAME</th>
-                            <th class="text-white" >CUSTOMER EMAIL</th>
-                            <th class="text-white"  >INVOICE BALANCE(FCY)</th>
-                            <th class="text-white"   >AVAILABLE CREDITS(FCY)</th>
-                            <th class="text-white"  >BALANCE(FCY)</th>
-                            <th class="text-white" >BALANCE(BCY)</th>
+                            <th style="color: white;">CUSTOMER NAME</th>
+                            <th style="color: white;" >CUSTOMER EMAIL</th>
+                            <th style="color: white;"  >INVOICE BALANCE(FCY)</th>
+                            <th style="color: white;"   >AVAILABLE CREDITS(FCY)</th>
+                            <th style="color: white;"  >BALANCE(FCY)</th>
+                            <th style="color: white;" >BALANCE(BCY)</th>
                         </tr>
                     </thead>
                     <tbody class="table" id="dataBody">
                         {% for v in vc %}
                         <tr id="over">
-                            <td class="text-white" >{{v.customerName}}</td>
-                            <td class="text-white" >{{v.customerEmail}}</td>
-                            <td class="text-white" ></td>
-                            <td class="text-white" ></td>
-                            <td class="text-white" ></td>
-                            <td class="text-white" ></td>
+                            <td style="color: white;" >{{v.customerName}}</td>
+                            <td style="color: white;" >{{v.customerEmail}}</td>
+                            <td style="color: white;" ></td>
+                            <td style="color: white;" ></td>
+                            <td style="color: white;" ></td>
+                            <td style="color: white;" ></td>
                         </tr>
                         {% endfor %}
                         <tr>
-                            <td class="text-white" >Total</td>
+                            <td style="color: white;" >Total</td>
                         </tr>
                     </tbody>
                 </table>
@@ -470,29 +470,59 @@ $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
 function exportAsPDF() {
   const container = document.getElementById('contentToExport');
 
-  // Apply styling changes to the container's content
-  const textWhiteElements = container.querySelectorAll('.body');
-  textWhiteElements.forEach(element => {
-    element.style.color = '#000000'; // Set text color to black
+  // Save the original background color
+  const originalBackgroundColor = container.style.backgroundColor;
+        
+  // Set the container's background color to white
+  container.style.backgroundColor = 'white';
 
-    
-  
+  // Apply styling changes to the container's content
+  const textWhiteElements = container.querySelectorAll('.text');
+  textWhiteElements.forEach(element => {
+    element.style.color = 'black'; // Set text color to black
   });
- 
-    
-  
+
+  const tableElements = container.querySelectorAll('table');
+  const tableCells = container.querySelectorAll('td, th');
+  const tableRows = container.querySelectorAll('tr');
+
+  tableElements.forEach(table => {
+    table.style.backgroundColor = '#ffffff'; // Set background color to white
+    table.style.color = '#000000'; // Set text color to black
+  });
+
+  tableCells.forEach(cell => {
+    cell.style.backgroundColor = '#ffffff'; // Set background color to white
+    cell.style.color = '#000000'; // Set text color to black
+    cell.style.border = '1px solid black'; // Add a black border
+  });
+
+  tableRows.forEach(row => {
+    row.style.backgroundColor = '#000000'; // Set background color to black
+  });
 
   const pdfOptions = {
     margin: 0,
     filename: document.getElementById('result').innerHTML + "_balances",
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 2 },
-    jsPDF: { unit: 'mm', format: 'a3', orientation: 'landscape' },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
   };
 
   // Generate PDF from the container
-  html2pdf().from(container).set(pdfOptions).save();
-  
+  html2pdf().from(container).set(pdfOptions).save().then(() => {
+
+    // Restore the original background color
+    container.style.backgroundColor = originalBackgroundColor;
+
+    textWhiteElements.forEach(element => {
+      element.style.color = 'white'; // Restore original text color
+
+    // Remove the pdf-background class after generating the PDF
+    container.classList.remove('pdf-background');
+    });
+    window.location.reload();
+  });
 }
 textWhiteElements.forEach(element => {
     element.style.color = 'black'; // Set text color to black

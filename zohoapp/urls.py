@@ -576,10 +576,12 @@ urlpatterns = [
     path('customer_balances',views.customer_balances,name="customer_balances"),
     path('delivery_challan',views.delivery_challan,name="delivery_challan"),
     path('show_customize_challan',views.show_customize_challan,name="show_customize_challan"),
-    path('url4', views.challan_customize, name='url4'),
-    path('url3', views.show_customize_challan, name='url3'),
+    # path('url4', views.challan_customize, name='url4'),
+    # path('url3', views.show_customize_challan, name='url3'),
     path('custom_report',views.custom_report,name="custom_report"),
-    path('challan_customize',views.challan_customize,name="challan_customize"),
+    # path('vendorbal_customer',views.vendorbal_customer,name="vendorbal_customer"),
+    
+    
     
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
     
