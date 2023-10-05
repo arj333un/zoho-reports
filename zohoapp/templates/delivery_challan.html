@@ -116,7 +116,8 @@
   </li>
 
   <li class="nav-item" style="height:4vh; width:4vw;">
-    <button type="button" onclick="history.go(-1);" style="height:5vh; width:2.5vw;">&times;</button>
+    <a href="{% url 'report_inventory_view' %}">
+    <button type="button"  onclick="history.go(-1);" style="height:5vh; width:2.5vw;">&times;</button></a>
   </li>
 </ul>
  
@@ -159,8 +160,8 @@
               <tr id="over">
      
                  <td <a href="" style="color:white ;">{{v.chellan_no}}</td>
-                <td> <class="chellan_date">{{v.chellan_date}}</td>
-                <td><class="text-white">{{v.status}}</td>
+                <td class="chellan_date">{{v.chellan_date}}</td>
+                <td class="text-white">{{v.status}}</td>
                 <td><a href="" style="text-decoration: none;color:white;"></a></td>
                 <td><a href="" style="text-decoration: none;color:white;"></a>{{v.customer_name}}</td>  
                 <td><a href="" style="text-decoration: none;color:white;"></a>{{v.sub_total}}</td> 
@@ -178,6 +179,7 @@
             </tbody>
         </table>
       </div>
+      <p id="d"></p>
         <div id="noDataMessage" style="display: none; color: white;">No data found for selected dates.</div>
         <br><br><br><br><br>
     </div>
@@ -198,12 +200,13 @@
 
 <script>
   $(function() {
-    var start = moment().subtract(29, 'days');
+    var start = moment().subtract(10, 'days');
     var end = moment();
   
     function cb(start, end, label) {
       $('#reportrange span').text(label);
       $('#selectedEndDate').text('From ' +start.format('MMMM D, YYYY')+'  to  '+end.format('MMMM D, YYYY'));
+      
     }
 
     $('#reportrange').daterangepicker({
@@ -240,6 +243,7 @@
     });
 
     cb(start, end, 'Today');
+  
   });
 
 
@@ -353,10 +357,9 @@
     function filterDataByDate(startDate, endDate) {
       const tableBody = document.getElementById('tableBody');
       const rows = tableBody.querySelectorAll('tr');
-    
+      
       rows.forEach(row => {
         const date = new Date(row.querySelector('.chellan_date').textContent);
-    
         if (date >= startDate && date <= endDate) {
           row.style.display = 'table-row';
         } else {
@@ -372,13 +375,15 @@
         noDataMessage.style.display = 'none';
       }
     }
-
+    
     $('#reportrange').daterangepicker({
       startDate: start,
       endDate: end,
       // ...
     }, function(start, end, label) {
-      filterDataByDate(start, end);
+      const startDate = new Date(start);
+      const endDate = new Date(end);
+      filterDataByDate(startDate, endDate);
     });
     
     </script>
