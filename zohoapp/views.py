@@ -2405,10 +2405,7 @@ def payment_term_for_invoice(request):
         return redirect("add_prod")
         
         
-def addprice(request):
-    company=company_details.objects.get(user=request.user)
-    add=AddItem.objects.all()
-    return render(request,'addprice_list.html',{'add':add,'company':company})
+
     
     
 def addpl(request):
@@ -2478,10 +2475,7 @@ def active_status(request, id):
     
     return render(request, 'view_price_list.html', {'view': viewitem})
 
-def viewpricelist(request):
-    company = company_details.objects.get(user = request.user)
-    view=Pricelist.objects.all()                                                                                                                                                                                                                                                                                                                        
-    return render(request,'view_price_list.html',{'view':view,'company':company})
+
     
 def viewlist(request,id):
     company = company_details.objects.get(user = request.user)
@@ -12083,3 +12077,14 @@ def custom_report(request):
     company = company_details.objects.get(user=user)
     return render(request,'custom_report.html',{'customer':customer1,'company':company})
 
+
+def viewpricelist(request):
+    company = company_details.objects.get(user = request.user)
+    view=Pricelist.objects.all() 
+                                                                                                                                                                                                                                                                                                                          
+    return render(request,'view_price_list.html',{'view':view,'company':company})
+
+def addprice(request):
+    company=company_details.objects.get(user=request.user)
+    add=AddItem.objects.all()
+    return render(request,'addprice_list.html',{'add':add,'company':company})

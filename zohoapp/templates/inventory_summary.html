@@ -167,13 +167,7 @@ td{
                 <span class="custom-caret"> <i class="fa fa-caret-down"></i></span>
               </div>
           </li>
-          <li class="nav-item">
-              <!-- Custom report link -->
-              <a class="nav-link" href="{% url 'custom_repot' %}" style="color: white;white-space: nowrap;">
-                  <i class="fa fa-gear" style="color: #0056b3;" ></i>
-                  Custom Report
-              </a>
-          </li>
+          
 
   <li class="nav-item dropdown" style="padding-left:650px ;">
     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" style="background: white; color: black;"><i class="fa fa-print"></i></a>
@@ -210,14 +204,14 @@ td{
    <center>
         <div class="row">
           {% if company.company_name != None %}
-           <div  ><h4 class="text text-danger" 
+           <div  ><h4 class="text-white" 
             >{{company.company_name }}
             {% else %}
              Add Company</h4>
             </div>
             {% endif %}
-           <div ><a class="text text-primary" style="font-size: 2rem; white-space: nowrap;color: white;"><h2>Inventory Summary </h2></a></div>
-                  <h5 class="text text-danger" id="selectedEndDate"></h5>
+           <div ><a class="text-white" style="font-size: 2rem; white-space: nowrap;color: white;"><h2>Inventory Summary </h2></a></div>
+                  <h5 class="text-white" id="selectedEndDate"></h5>
             </div>
         </div>   
       </center>
@@ -236,17 +230,17 @@ td{
                           
                         </tr>
                       <tr class="table" >
-                        <th class="table">ITEM NAME</th>
-                        <th class="table">SKU</th>
+                        <th class="table text-white">ITEM NAME</th>
+                        <th class="table  text-white">SKU</th>
                      
-                        <th class="table">QUANTITY ORDERED</th>
-                        <th class="table">QUANTITY IN</th>
-                        <th class="table">QUANTITY OUT</th>
+                        <th class="table text-white">QUANTITY ORDERED</th>
+                        <th class="table text-white">QUANTITY IN</th>
+                        <th class="table text-white">QUANTITY OUT</th>
                         
                       
-                        <th class="table">STOCK ON HAND</th>
-                        <th class="table">COMMITTED STOCK</th>
-                        <th class="table">AVAILABLE FOR SALE</th>
+                        <th class="table text-white">STOCK ON HAND</th>
+                        <th class="table text-white">COMMITTED STOCK</th>
+                        <th class="table text-white">AVAILABLE FOR SALE</th>
                       </tr>
                     </thead>
                     <tbody class="table">
@@ -255,16 +249,16 @@ td{
                       <tr id="over">
                       
                      
-                        <td class="table">{{i.Name}}</td>
+                        <td class="table text-white">{{i.Name}}</td>
                         
-                        <td class="table"></td>
-                        <td class="table"></td>
-                        <td class="table"></td>
+                        <td class="table text-white"></td>
+                        <td class="table text-white"></td>
+                        <td class="table text-white"></td>
 
-                        <td class="table"></td>
-                        <td class="table"></td>
-                        <td class="table"></td>
-                        <td class="table"></td>
+                        <td class="table text-white"></td>
+                        <td class="table text-white"></td>
+                        <td class="table text-white"></td>
+                        <td class="table text-white"></td>
 
         
                        
