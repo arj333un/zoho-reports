@@ -8761,10 +8761,7 @@ def report_view(request):
     company = company_details.objects.get(user=request.user)
     return render(request,'reports.html',{'company':company})
 
-def inventory_summary(request):
-    company = company_details.objects.get(user=request.user)
-    item=AddItem.objects.all()
-    return render(request,'inventory_summary.html',{'company':company,'item':item})
+
 
 
 def custom_repot(request):
@@ -12088,3 +12085,8 @@ def addprice(request):
     company=company_details.objects.get(user=request.user)
     add=AddItem.objects.all()
     return render(request,'addprice_list.html',{'add':add,'company':company})
+
+def inventory_summary(request):
+    company = company_details.objects.get(user=request.user)
+    item=AddItem.objects.all()
+    return render(request,'inventory_summary.html',{'company':company,'item':item})
