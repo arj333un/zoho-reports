@@ -5998,11 +5998,11 @@ def purchase_order(request):
 def purchaseView(request):
     purchase_table=Purchase_Order.objects.all()
     purchase_order_table=Purchase_Order_items.objects.all()
-    company=company_details.objects.get(id=request.user.id)
+    
     context={
         'pt':purchase_table,
         'po_t':purchase_order_table,
-        'company':company,
+        
         }
     return render(request,'purchase_order.html',context)
 

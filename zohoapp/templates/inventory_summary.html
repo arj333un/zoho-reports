@@ -80,6 +80,20 @@
   </div>
   
 </div>
+<div  style="top: 7rem; " > 
+  <div class="mt-1">
+      <datalist onclick="getValue()" id="customers" >
+        
+        {% for i in add %}
+        <option value="{{ i.Name }}" >
+    {% endfor %}
+
+      
+      </datalist>
+  </div>
+  
+<input type="text" onclick="getValue()" id="search"  placeholder="Search.." autocomplete="off"  list="customers">
+
 
 <div class="container-fluid" id="container-to-print"> 
   <div class="row pt-5">
@@ -119,8 +133,11 @@
                 <td style="color: white;">{{i.}}</td>
                 <td style="color: white;">{{i.}}</td>
                 <td style="color: white;">{{i.}}</td>
-                <td style="color: white;">{{i.total}}</td>
-                <td style="color: white;">0</td>
+                <td style="color: white;">{{i.}}</td>
+                <td style="color: white;">{{i.}}</td>
+                <td style="color: white;">{{i.}}</td>
+
+                <!--<td style="color: white;">0</td>-->
                 
                 {% endfor %}
             </tr>
@@ -137,6 +154,39 @@
 <div class="printable-content mt-3">
   
 </div>
+<script>
+  const searchInput = document.getElementById("search");
+  const partyNameDisplay = document.getElementById("party_name");
+  
+  searchInput.addEventListener("input", handleInputChange);
+  
+  function handleInputChange() {
+      const selectedCustomer = this.value;
+      const headingElement = document.getElementById("selected_customer_heading");
+      headingElement.innerHTML = selectedCustomer ? <h2>${selectedCustomer} Balances</h2> : "<h2>Bill Details</h2>";
+  }
+  
+  // Add event listener to the input field for the "input" event
+  searchInput.addEventListener("input", handleInput);
+  
+  // Function to handle input changes
+  function handleInput() {
+      const checkbox = document.getElementById('myCheckbox');
+      const startDateInput = document.getElementById('startDate');
+      const endDateInput = document.getElementById('endDate');
+      // Add an event listener to the checkbox to toggle the date input
+      checkbox.addEventListener('change', function() {
+          if (checkbox.checked) {
+              startDateInput.style.display = 'flex';
+              endDateInput.style.display = 'flex'; // Show the date input
+          } else {
+              startDateInput.style.display = 'none';
+              endDateInput.style.display = 'none' // Hide the date input
+          }
+      });
+  }
+  
+</script>
 
 <script>
 
