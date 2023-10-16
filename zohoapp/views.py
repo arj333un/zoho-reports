@@ -12073,7 +12073,7 @@ def custom_report(request):
     customer1 = customer.objects.all()
     company = company_details.objects.get(user=user)
     return render(request,'custom_report.html',{'customer':customer1,'company':company})
-
+#------arjun
 
 def viewpricelist(request):
     company = company_details.objects.get(user = request.user)
