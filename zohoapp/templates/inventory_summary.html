@@ -116,7 +116,7 @@
         </tr>
             <tr>
                 <th style="color: white;">ITEM NAME</th>
-                <th style="color: white;">SKU</th>
+                <th style="color: white;">HSN</th>
                 <th style="color: white;">QUANTITY ORDERED</th>
                 <th style="color: white;">QUANTITY IN</th>
                 <th style="color: white;">QUANTITY OUT</th>
@@ -129,11 +129,11 @@
             {% for i in item %}
             <tr>         
                 <td style="color: white;">{{i.Name}}</td>
+                <td style="color: white;">{{i.hsn}}</td>
                 <td style="color: white;">{{i.}}</td>
                 <td style="color: white;">{{i.}}</td>
                 <td style="color: white;">{{i.}}</td>
-                <td style="color: white;">{{i.}}</td>
-                <td style="color: white;">{{i.}}</td>
+                <td style="color: white;">{{i.stock}}</td>
                 <td style="color: white;">{{i.}}</td>
                 <td style="color: white;">{{i.}}</td>
 

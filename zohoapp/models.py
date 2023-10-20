@@ -401,7 +401,7 @@ class Expense(models.Model):
 class Account(models.Model):
     accountType = models.CharField(max_length=255)
     accountName = models.CharField(max_length=255)
-    accountCode = models.CharField(max_length=255)
+    # accountCode = models.CharField(max_length=255)
     description = models.TextField() 
     user = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
     
