@@ -1,9 +1,13 @@
   {% extends 'base.html' %}
   {% load static %}
   {% block content %}
-
- 
-  
+<head>
+ <style>
+  .modal-dialog {
+    margin: auto;
+  }
+ </style>
+</head>
  
   <section class="container" sryle="position:fixed;z-index:99;" > 
     <div class="row mt-3 " style="margin-top: -3rem; margin-left:1rem;" >
@@ -65,20 +69,69 @@
           <tr class="{% if v.status == 'active' or v.status == 'Active' %}active{% elif v.status == 'inactive' or v.status == 'Inactive' %}inactive{% endif %}">
             <td class="item-name-cell" onclick="location.href ='{% url 'detail' v.id %}'">{{ v.name }}</td>
             <td>{{ v.itemtable.date }}</td>
-            <td>{{ v.description }}</td>
+            <td>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#descriptionModal" data-description="{{ v.description }}" >
+                <i class="fa fa-comments"></i>  
+              </button>
+            </td>
             <td>{{ v.itemtable.type }}</td>
             <td>{{ v.itemtable.rate }}</td>
             <td>{{ v.roundoff }}</td>
             <td>{{ v.status }}</td>
             <td>{{ v.mark }}</td>
-            <td><a href=""><span class="glyphicon glyphicon-remove text-danger">Delete</span></a></td>
-            
+            {% comment %} <td><a href=""><span class="glyphicon glyphicon-remove text-danger">Delete</span></a></td> {% endcomment %}
+            <td>
+              <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteReasonModal" data-id="{{ v.id }}">Delete</a>
+            </td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
     </div>
   </section>
+<!-- Modal Structure -->
+<div class="modal fade" id="descriptionModal" tabindex="-1" role="dialog" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="descriptionModalLabel">Description</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="descriptionContent"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Structure for Delete Reason -->
+<div class="modal fade" id="deleteReasonModal" tabindex="-1" role="dialog" aria-labelledby="deleteReasonModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteReasonModalLabel">Reason for Deletion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="deleteReason">Please provide a reason for deletion:</label>
+          <textarea class="form-control" id="deleteReason" rows="4"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="confirmDelete">Confirm Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
   <script>
@@ -282,4 +335,56 @@
     });
   });
 
+  
+
+</script>
+<script>
+  $(document).ready(function() {
+    $('#descriptionModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      var description = button.data('description');
+      var modal = $(this);
+      modal.find('.modal-body #descriptionContent').text(description);
+    });
+  });
+</script>
+<script>
+  function showDescriptionModal(description) {
+    $('#descriptionModal').modal('show');
+    $('#descriptionContent').text(description);
+  }
+</script>
+
+<script>
+  $(document).ready(function() {
+    var deleteItemId;
+
+    // Handle delete button click
+    $('#deleteReasonModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      deleteItemId = button.data('id');
+    });
+
+    // Handle confirm delete button click
+    $('#confirmDelete').on('click', function() {
+      var deleteReason = $('#deleteReason').val();
+      
+      // Send an AJAX request to your Django view to handle the deletion
+      // Example:
+      // $.ajax({
+      //   url: '/delete_item/',
+      //   type: 'POST',
+      //   data: {id: deleteItemId, reason: deleteReason},
+      //   success: function(response) {
+      //     // Handle success response (e.g., remove the item from the table)
+      //   },
+      //   error: function(error) {
+      //     // Handle error
+      //   }
+      // });
+      
+      // Close the modal
+      $('#deleteReasonModal').modal('hide');
+    });
+  });
 </script>

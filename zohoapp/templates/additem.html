@@ -178,13 +178,13 @@
             <div class="form-group row">
               <label  class="col-sm-2 col-form-label ">Name *</label>
               <div class="col-sm-10 col-md-7 col-9" style="margin-left: -2.2rem;">
-                <input required type="text" class="form-control bg-dark" name="name" id="nameInput">
+                <input required type="text" class="form-control bg-white text-dark" name="name" id="nameInput">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">Unit <i class="fa fa-question-circle"></i></label>
               <div class="col-sm-10 col-md-7 col-9" style="margin-left: -2.2rem;">
-                  <select name="unit" class="form-control bg-dark" id="unit">
+                  <select name="unit" class="form-control bg-white text-dark" id="unit">
                       {% for u in unit %}
                       <option value="{{u.id}}">{{u.unit}}</option>
                       {% endfor %}
@@ -196,7 +196,7 @@
             <div class="form-group row">
               <label  class="col-sm-2 col-form-label">HSN Code</label> 
               <div class="col-sm-10 col-md-7 col-9"  style="margin-left: -2.2rem;" >
-                <input required type="number" class="form-control bg-dark" name="hsn" id="myInputField" oninput="validateInput()">
+                <input required type="number" class="form-control bg-white text-dark" name="hsn" id="myInputField" oninput="validateInput()">
                 <div id="validationResult"></div>
               </div>
             </div>
@@ -235,7 +235,7 @@
             
                 <div id="select1_div" style="display: none;">
                   <label for="select1">Intra-State TAX</label>
-                  <select name="intra" class="form-control bg-dark" id="select1">
+                  <select name="intra" class="form-control bg-white text-dark" id="select1">
                     <option value="GST0[0%]">GST0[0%]</option>
                     <option value="GST3[3%]">GST3[3%]</option>
                     <option value="GST5[5%]">GST5[5%]</option>
@@ -248,7 +248,7 @@
               <div class="col-md-6">
                 <div id="select2_div" style="display: none;">
                   <label for="select2">Inter-State TAX</label>
-                  <select name="inter" class="form-control bg-dark" id="select2">
+                  <select name="inter" class="form-control bg-white text-dark" id="select2">
                     <option value="IGST0[0%]">IGST0[0%]</option>
                     <option value="IGST5[5%]">IGST3[3%]</option>
                     <option value="IGST5[5%]">IGST5[5%]</option>
@@ -287,19 +287,19 @@
                     <div class="input-group-prepend">
                       <div class="input-group-text">INR</div>
                     </div>
-                    <input required type="text" name="sel_price" class="form-control bg-dark">
+                    <input required type="text" name="sel_price" class="form-control bg-white text-dark">
                   </div>
                 </div>
               </div>
               <div class="form-group row">
                 <label  class="col-sm-2 col-form-label">Account *</label>
                 <div class="col-sm-10 col-md-7 col-9 ml-5">
-                  <select name="sel_acc" class="form-control bg-dark">
+                  <select name="sel_acc" class="form-control bg-white text-dark">
                     
                          
                     
                     {% for account_type in account_type %}
-                      <option value="" disabled class="btn btn-dark text-light highlight-account-type"><b>{{ account_type }}</b></option>
+                      <option value="" disabled class="btn btn text-dark highlight-account-type"><b>{{ account_type }}</b></option>
                       {% for account in account %}
                       {% if account.Account_type == account_type %}
                       <option value="{{account.id}}">{{ account.Account_name }}</option>
@@ -313,7 +313,7 @@
               <div class="form-group row">
                 <label  class="col-sm-2 col-form-label">Description </label>
                 <div class="col-sm-10 col-md-7 col-9 ml-5">
-                  <input required  type="text" name="sel_desc" class="form-control bg-dark" >
+                  <input required  type="text" name="sel_desc" class="form-control bg-white text-dark" >
                 </div>
               </div>
                                     
@@ -327,16 +327,16 @@
                     <div class="input-group-prepend">
                       <div class="input-group-text">INR</div>
                     </div>
-                    <input required type="text" class="form-control bg-dark" name="cost_price" >
+                    <input required type="text" class="form-control bg-white text-dark" name="cost_price" >
                   </div>
                 </div>
               </div>
               <div class="form-group row in">
                 <label class="col-sm-2 col-form-label">Account *</label>
                 <div class="col-sm-10 col-md-7 col-9">
-                  <select name="cost_acc" class="form-control bg-dark" id="myaccount">
+                  <select name="cost_acc" class="form-control bg-white text-dark" id="myaccount">
                     {% for account_type in account_types %}
-                    <option value="" disabled class="btn btn-dark text-light highlight-account-type"><b>{{ account_type }}</b></option>
+                    <option value="" disabled class="btn btn text-dark highlight-account-type"><b>{{ account_type }}</b></option>
                     {% for account in accounts %}
                     {% if account.Account_type == account_type %}
                     <option value="{{account.id}}">{{ account.Account_name }}</option>
@@ -355,7 +355,7 @@
               <div class="form-group row">
                 <label  class="col-sm-2 col-form-label">Description </label>
                 <div class="col-sm-10 col-md-7 col-9">
-                  <input  type="text" name="cost_desc" class="form-control bg-dark"  >
+                  <input  type="text" name="cost_desc" class="form-control bg-white text-dark"  >
                 </div>
               </div>
             </div>
@@ -398,13 +398,13 @@
                     <div class="form-group row ">
                       <label class="col-sm-2 col-form-label">Opening Stock</label>
                       <div class=" col-md-5">
-                        <input  type="number" class="form-control  bg-dark"  name="openstock" value="0">
+                        <input  type="number" class="form-control  bg-white text-dark"  name="openstock" value="0">
                       </div>
                       <div class="col-md-5  ">
                         <div class="row align-items-center">
                           <label class="col-sm-6 col-form-label">Opening Stock Rate per Unit</label>
                           <div class="col-sm-6">
-                            <input type="number" class="form-control bg-dark" name="inventoryaccntperunit"  value="0">
+                            <input type="number" class="form-control bg-white text-dark" name="inventoryaccntperunit"  value="0">
                           </div>
 
                         </div>

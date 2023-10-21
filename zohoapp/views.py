@@ -12088,5 +12088,6 @@ def addprice(request):
 
 def inventory_summary(request):
     company = company_details.objects.get(user=request.user)
+    sales = sales_item.objects.all()
     item=AddItem.objects.all()
-    return render(request,'inventory_summary.html',{'company':company,'item':item})
+    return render(request,'inventory_summary.html',{'company':company,'item':item,'sales':sales})
