@@ -1,22 +1,33 @@
   {% extends 'base.html' %}
   {% load static %}
   {% block content %}
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+ <style>
+  .modal-dialog {
+    margin: auto;
+  }
+ </style>
+</head>
  
-  
- 
-  <section class="container" sryle="position:fixed;z-index:99;" > 
+  <section class="container" style="position:fixed;z-index:99;" > 
     <div class="row mt-3 " style="margin-top: -3rem; margin-left:1rem;" >
       <div class="col-md-10 form-inline ">
         <div class="row">
           <div class="col-md-9"><a class="text-white" style="font-size: 2rem;">All Price List</a></div>
           <input type="text"  id="searchInput" class="form-control bg-dark" placeholder="Search Items..." style="margin-top: 25px; width: 30%;">
           
-          <div class="btn-group" role="group"  style="margin-left: 1rem;margin-top:1.7rem;display:inline-flex;width:4rem;height:2rem;">
-            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="btn-group " role="group"  style="margin-left: 1rem;margin-top:1.7rem;display:inline-flex;width:4rem;height:2rem;">
+            <button id="btnGroupDrop1" type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Sort
             </button>
-            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <div class=" dropdown-menu" aria-labelledby="btnGroupDrop1">
               <a class="dropdown-item" href="#"  data-sort="all">All</a>
               <a class="dropdown-item" href="#"  data-sort="name">Name</a>
               <a class="dropdown-item" href="#"  data-sort="HSN">Type</a>
@@ -27,7 +38,7 @@
             
           </div>
           <div class="btn-group" role="group"  style="margin-left: 58rem;margin-top:-1.9rem;display:inline-flex;width:4rem">
-            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button id="btnGroupDrop1" type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Filter
             </button>
             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
@@ -37,18 +48,18 @@
             </div>
             
           </div>
-          <div class="col-md-9 form-inline"  style="margin-top: -2rem; margin-left:64rem;"><a style="color: #000;" class="btn btn-secondary " href="{% url 'addprice' %}"><i class="fa-solid fa-plus "></i>New PriceList</a>
+          <div class="col-md-9 form-inline"  style="margin-top: -2.3rem; margin-left:64rem;"><a style="color: #000;" class="btn btn-light " href="{% url 'addprice' %}"><i class="fa-solid fa-plus "></i>New PriceList</a>
             <a style="color: #ccc;"href="#3"> </a>
           </div> 
         </div>
       </div>
     </div>  
-    <div id="tableContainer" style="max-height: 500px; overflow-y: auto;">
-      <table id="dataTable" class="table text-white mt-2" style="width: 100%; margin-top: 40px;">
+    <div class="table-responsive" id="tableContainer" style=" overflow-y: auto;">
+      <table id="dataTable" class="table text-white mt-3" style="width: 100%; margin-top: 40px;">
         <thead>
           <tr>
-            <th class="col" >Name</th>
-            <th class="col">Date</th>
+            <th class="col" >Date</th>
+            <th class="col">Name</th>
             <th class="col">Description</th>
             <th class="col">Type</th>
             <th class="col">Item Rate</th>
@@ -63,22 +74,72 @@
         <tbody>
           {% for v in view %}
           <tr class="{% if v.status == 'active' or v.status == 'Active' %}active{% elif v.status == 'inactive' or v.status == 'Inactive' %}inactive{% endif %}">
-            <td class="item-name-cell" onclick="location.href ='{% url 'detail' v.id %}'">{{ v.name }}</td>
             <td>{{ v.itemtable.date }}</td>
-            <td>{{ v.description }}</td>
+            <td class="item-name-cell" onclick="location.href ='{% url 'detail' v.id %}'">{{ v.name }}</td>
+            
+            <td>
+              {% comment %} <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#descriptionModal" data-description="{{ v.description }}" > {% endcomment %}
+                <i class="fa fa-comments " ></i>  
+              </button>
+            </td>
             <td>{{ v.itemtable.type }}</td>
             <td>{{ v.itemtable.rate }}</td>
             <td>{{ v.roundoff }}</td>
             <td>{{ v.status }}</td>
-            <td>{{ v. }}</td>
-            <td><a href=""><span class="glyphicon glyphicon-remove text-danger">Delete</span></a></td>
-            
+            <td>{{ v.mark }}</td>
+            {% comment %} <td><a href=""><span class="glyphicon glyphicon-remove text-danger">Delete</span></a></td> {% endcomment %}
+            <td>
+              <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteReasonModal" data-id="{{ v.id }}">Delete</a>
+            </td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
     </div>
   </section>
+<!-- Modal Structure -->
+<div class="modal fade" id="descriptionModal" tabindex="-1" role="dialog" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="descriptionModalLabel">Description</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="descriptionContent"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button"  class="close btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Structure for Delete Reason -->
+<div class="modal fade" id="deleteReasonModal" tabindex="-1" role="dialog" aria-labelledby="deleteReasonModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteReasonModalLabel">Reason for Deletion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="deleteReason">Please provide a reason for deletion:</label>
+          <textarea class="form-control text-black" id="deleteReason" rows="4"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="confirmDelete">Confirm Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
   <script>
@@ -219,10 +280,7 @@
     document.getElementById("searchInput").addEventListener("input", searchTable);
   </script>
 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
-
+  
 
 {% endblock %}
 
@@ -282,4 +340,70 @@
     });
   });
 
+  
+
 </script>
+<!--<script>
+  $(document).ready(function() {
+    $('#descriptionModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      var description = button.data('description');
+      var modal = $(this);
+      modal.find('.modal-body #descriptionContent').text(description);
+    });
+  });
+</script>
+<script>
+  function showDescriptionModal(description) {
+    $('#descriptionModal').modal('show');
+    $('#descriptionContent').text(description);
+  }
+</script> -->
+
+<script>
+  $(document).ready(function() {
+    var deleteItemId;
+
+    // Handle delete button click
+    $('#deleteReasonModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      deleteItemId = button.data('id');
+    });
+
+    // Handle confirm delete button click
+    $('#confirmDelete').on('click', function() {
+      var deleteReason = $('#deleteReason').val();
+      
+      // Send an AJAX request to your Django view to handle the deletion
+      // Example:
+      // $.ajax({
+      //   url: '/delete_item/',
+      //   type: 'POST',
+      //   data: {id: deleteItemId, reason: deleteReason},
+      //   success: function(response) {
+      //     // Handle success response (e.g., remove the item from the table)
+      //   },
+      //   error: function(error) {
+      //     // Handle error
+      //   }
+      // });
+      
+      // Close the modal
+      $('#deleteReasonModal').modal('hide');
+    });
+  });
+</script>
+<script>
+  $(document).ready(function() {
+      // Show description modal on hover
+      $('.show-description').hover(function() {
+          var description = $(this).data('description');
+          $('#descriptionContent').text(description);
+          $('#descriptionModal').modal('show');
+      }, function() {
+          // Hide modal on hover out (optional)
+          $('#descriptionModal').modal('hide');
+      });
+  });
+  </script>
+  
