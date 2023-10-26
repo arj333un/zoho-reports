@@ -581,7 +581,9 @@ urlpatterns = [
     path('custom_report',views.custom_report,name="custom_report"),
     # path('vendorbal_customer',views.vendorbal_customer,name="vendorbal_customer"),
     
-    
+    path('pricedetail/<int:id>',views.pricedetail,name='pricedetail'),
+    path('deleteprice/<int:pk>',views.deleteprice,name='deleteprice'),
+
     
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
     

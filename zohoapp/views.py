@@ -12086,8 +12086,38 @@ def addprice(request):
     add=AddItem.objects.all()
     return render(request,'addprice_list.html',{'add':add,'company':company})
 
+def deleteprice(request,id):
+    dl=Pricelist.objects.get(id=id)
+    dl.delete()
+    return redirect('viewpricelist')
+
 def inventory_summary(request):
     company = company_details.objects.get(user=request.user)
     sales = sales_item.objects.all()
     item=AddItem.objects.all()
     return render(request,'inventory_summary.html',{'company':company,'item':item,'sales':sales})
+
+def pricedetail(request,id):
+    company=company_details.objects.get(user=request.user)
+    user_id=request.user
+    items=Pricelist.objects.all()
+    product=Pricelist.objects.get(id=id)
+    history=History.objects.filter(p_id=product.id)
+    comments = Comments_item.objects.filter(item=id).order_by('-id')
+    print(product.id)
+    
+    quantity = int(product.stock)
+    price = int(product.p_price)
+    stock = (quantity * price)
+    
+    
+    context={
+       "allproduct":items,
+       "product":product,
+       "history":history,
+       'company':  company, 
+       "comments":comments,
+       'stock': stock,
+    }
+    
+    return render(request,'demo1.html',context)
