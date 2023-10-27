@@ -1,0 +1,17 @@
+
+
+def viewlist(request,id):
+    company = company_details.objects.get(user = request.user)
+    items=Pricelist.objects.all()
+    product=Pricelist.objects.get(id=id)
+    print(product.id)
+    
+    
+    context={
+       "allproduct":items,
+       "product":product,
+       'company':company,
+      
+    }
+    
+    return render(request,'list.html',context)

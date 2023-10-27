@@ -12106,9 +12106,6 @@ def pricedetail(request,id):
     comments = Comments_item.objects.filter(item=id).order_by('-id')
     print(product.id)
     
-    quantity = int(product.stock)
-    price = int(product.p_price)
-    stock = (quantity * price)
     
     
     context={
@@ -12117,7 +12114,38 @@ def pricedetail(request,id):
        "history":history,
        'company':  company, 
        "comments":comments,
-       'stock': stock,
     }
     
     return render(request,'demo1.html',context)
+
+def editpage(request,id):
+    if request.method=='POST':
+        edit=Pricelist.objects.get(id=id)
+        edit.name=request.POST['name']
+        edit.description=request.POST['desc']
+        edit.mark=request.POST['mark']
+        edit.percentage=request.POST['per']
+        print(request.POST['per'])
+        edit.tax=request.POST['types']
+        
+        edit.roundoff=request.POST['round']
+        print(edit.roundoff)
+        item_name = request.POST.getlist('iname[]') 
+        print(item_name)
+        price = request.POST.getlist('iprice[]')
+        rate = request.POST.getlist('custom[]') 
+        sam=Sample_table.objects.filter(pl=id).delete()
+
+        if len(item_name) == len(price) == len(rate):
+            mapped2 = zip(item_name, price, rate)
+            mapped2 = list(mapped2)
+         
+            for ele in mapped2:
+                created = Sample_table.objects.get_or_create(item_name=ele[0], price=ele[1], cust_rate=ele[2],pl=edit)
+        edit.save()
+
+        return redirect('viewpricelist')
+def delete_item(request,id):
+    dl=Pricelist.objects.get(id=id)
+    dl.delete()
+    return redirect('viewpricelist')
