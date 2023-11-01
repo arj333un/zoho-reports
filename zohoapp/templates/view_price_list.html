@@ -39,7 +39,7 @@
 
   <section id="estimates_section">
     <div class="row  mx-2">
-      <div class="col-md-6 py-2"><a class="text-white" style="font-size: 1.5rem;">Godown List</a></div>
+      <div class="col-md-6 py-2"><a class="text-white" style="font-size: 1.5rem;">View PriceList</a></div>
       <div class="col-md-6 form-inline justify-content-end py-2">
         <!-- <a style="color: white; background-color: rgb(210, 132, 30);" class="btn mr-1" href="{% url 'newestimate' %}"><i
             class="fa-solid fa fa-plus " ></i>New</a> -->
@@ -135,7 +135,7 @@
          <div class="modal-body" style="background: rgb(32, 35, 37); justify-content: center; overflow: hidden;">
              <div class="card p-0 m-0">
              
-                 <form action="" method="post" class="needs-validation" novalidate autocomplete="off"
+                 <form action="{% url 'delete_item' v.id %}" method="post" class="needs-validation" novalidate autocomplete="off"
                      id="modalComment">
                      {% csrf_token %}
                      

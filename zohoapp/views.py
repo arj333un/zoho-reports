@@ -2462,18 +2462,21 @@ def addpl(request):
     # return render(request, 'addprice_list.html')
 def createpl(request):
     return render(request,'addprice_list.html')
-def active_status(request, id):
-    user = request.user.id
-    user = User.objects.get(id=user)
-    viewitem = Pricelist.objects.all()
-    event = Pricelist.objects.get(id=id)
+
+# def active_status(request, id):
+#     user = request.user.id
+#     user = User.objects.get(id=user)
+#     viewitem = Pricelist.objects.all()
+#     event = Pricelist.objects.get(id=id)
     
-    if request.method == 'POST':
-        action = request.POST['action']
-        event.status = action  # Updated field name to 'status'
-        event.save()
+#     if request.method == 'POST':
+#         action = request.POST['action']
+#         event.status = action  # Updated field name to 'status'
+#         event.save()
     
-    return render(request, 'view_price_list.html', {'view': viewitem})
+#     return render(request, 'view_price_list.html', {'view': viewitem})
+
+
 
 
     
@@ -12149,3 +12152,12 @@ def delete_item(request,id):
     dl=Pricelist.objects.get(id=id)
     dl.delete()
     return redirect('viewpricelist')
+
+def active_status(request,id):
+    p=Pricelist.objects.get(id=id)
+    if p.status == 'active':
+        p.status = 'inactive'
+    else:
+        p.status = 'active'
+    p.save()
+    return redirect('viewlist',id=id)

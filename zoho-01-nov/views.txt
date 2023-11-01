@@ -1,0 +1,8 @@
+def active_status(request,id):
+    p=Pricelist.objects.get(id=id)
+    if p.status == 'active':
+        p.status = 'inactive'
+    else:
+        p.status = 'active'
+    p.save()
+    return redirect('viewlist',id=id)
