@@ -1,0 +1,44 @@
+Python is well suited to object orientated programming in that it allows the definition of classes along with composition and inheritance
+
+PEP stands for Python Enhancement Proposal. A PEP is a design document providing information to the Python community, or describing a new feature for Python or its processes or environment. 
+
+PIP  PIP Installs Packages installs python packages
+
+A namespace in python refers to the name which is assigned to each object in python
+A namespace is a naming system used to make sure that names are unique to avoid naming conflicts.
+
+Decorators are used to add some design patterns to a function without changing its structure
+
+Python private heap space,garbabge collection
+
+The self is an instance variable in the init method refers to the newly created object while in other methods, it refers to the object whose method was called
+
+Iterators are objects which can be traversed though or iterated upon.  itr and next
+Functions that return an iterable set of items are called generators. yields
+
+The only difference is that range returns a Python list object and x range returns an xrange object.
+
+pickliing -object to string rep and dump in file,unpickling-string rep to original objects
+
+*args- how many arguments are passed,**kwargs-dont know number,dictionary can pass
+
+Global Interpreter Lock (GIL) makes sure that only one of your ‘threads’ can execute at any one time
+
+Shallow copy is used when a new instance type gets created and it keeps values that are copied whereas deep copy stores values that are already copied.
+
+In Python, the term monkey patch only refers to dynamic modifications of a class or module at run-time.
+
+Function Annotation is a feature that allows you to add metadata to function parameters and return values
+
+Context is a dictionary mapping template variable name given to Python objects in Django
+
+a=int(input("enter number"))
+if a=1:
+   for x in range(2,a):
+         if(a%x)==0:
+          print("not prime")
+   break
+   else:
+      print("Prime")
+else:
+   print("not prime")

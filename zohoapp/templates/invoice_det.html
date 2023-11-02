@@ -91,7 +91,7 @@
               <td>
                   <div class="row">
                       <div class="col-md-6">
-                          <!-- <h5 style="color: rgb(218, 143, 5);">{{v.customer.customerName}}</h5> -->
+                          {% comment %} <!-- <h5 style="color: rgb(218, 143, 5);">{{v.customer.customerName}}</h5> --> {% endcomment %}
                           <h5><a href="{% url 'detailedview' v.id %}" style="color: rgb(218, 143, 5);cursor: pointer;">{{v.customer.customerName}}</a></h5>
                       </div>
                       <div class="col-md-6 text-right" style="color: rgb(218, 143, 5);">&#x20B9;{{v.grandtotal}}</div>
